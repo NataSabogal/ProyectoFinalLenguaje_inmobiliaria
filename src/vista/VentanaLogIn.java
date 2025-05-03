@@ -7,8 +7,7 @@ package vista;
 import controlador.ControladorLogIn;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import modelo.RolDeUsuarios;
-import modelo.RolDeUsuarios.Rol;
+import modelo.RolUsuario;
 import modelo.Usuario;
 
 /**
@@ -173,19 +172,19 @@ public class VentanaLogIn extends javax.swing.JFrame {
         String password = String.valueOf(txtContraseña.getPassword());
         Usuario aux = loginController.logIn(cedula, password);
         if (aux != null) {
-            if (aux.getRol() == Rol.ADMINISTRADOR) {
+            if (aux.getRol() == RolUsuario.ADMINISTRADOR) {
                 VentanaAdmin admin = new VentanaAdmin();
                 admin.setVisible(true);
                 admin.setLocationRelativeTo(null);
                 this.dispose();
-            } else if (aux.getRol() == RolDeUsuarios.Rol.EMPLEADO) {
-                VentanaEmpleado vista = new VentanaEmpleado();
+            } else if (aux.getRol() == RolUsuario.EMPLEADO) {
+                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado();
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
 
-            } else if (aux.getRol() == RolDeUsuarios.Rol.CLIENTE) {
-                VentanaCliente vista = new VentanaCliente();
+            } else if (aux.getRol() == RolUsuario.CLIENTE) {
+                VentanaPrincipalCliente vista = new VentanaPrincipalCliente();
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();

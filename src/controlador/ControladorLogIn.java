@@ -5,7 +5,7 @@
 package controlador;
 
 import java.util.ArrayList;
-import modelo.RolDeUsuarios.Rol;
+import modelo.RolUsuario;
 import modelo.Usuario;
 
 /**
@@ -14,7 +14,7 @@ import modelo.Usuario;
  */
 public class ControladorLogIn {
 
-    Usuario admin = new Usuario("Natalia Sabogal", "123", 19, "17/11/2005", "320511", "123", Rol.ADMINISTRADOR);
+    Usuario admin = new Usuario("Natalia Sabogal", "123", 19, "17/11/2005", "320511", "123", RolUsuario.ADMINISTRADOR);
     ArrayList<Usuario> usuarios;
 
     public ControladorLogIn() {

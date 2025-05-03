@@ -4,9 +4,8 @@
  */
 package vista;
 
-import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
-import modelo.RolDeUsuarios.Rol;
+import modelo.RolUsuario;
 import modelo.Usuario;
 
 /**
@@ -19,11 +18,9 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
      * Creates new form VentanaRegistroCliente
      */
     
-    ControladorUsuario userController;
     
     public VentanaRegistroCliente() {
         initComponents();
-        userController = new ControladorUsuario();
     }
 
     /**
@@ -49,6 +46,7 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
         btnRegistrarse = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +72,8 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Volver");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,31 +81,39 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4))
-                        .addGap(69, 69, 69)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombre)
-                            .addComponent(txtCedula)
-                            .addComponent(txtPassword)
-                            .addComponent(txtFecha)
-                            .addComponent(txtTelefono)
-                            .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(btnRegistrarse)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
+                                .addGap(69, 69, 69)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtCedula)
+                                    .addComponent(txtPassword)
+                                    .addComponent(txtFecha)
+                                    .addComponent(txtTelefono)
+                                    .addComponent(txtEdad, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(118, 118, 118)
+                                .addComponent(btnRegistrarse)))
+                        .addGap(0, 48, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,7 +139,7 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(43, 43, 43)
                 .addComponent(btnRegistrarse)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,14 +163,18 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         String fecha = txtFecha.getText();
         String password = txtPassword.getText();
         String telefono = txtTelefono.getText();
-        Rol rolCliente = Rol.CLIENTE;
+        RolUsuario rolCliente = RolUsuario.CLIENTE;
         Usuario user = new Usuario(nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = userController.guardarUsuario(user);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-        }else{
-            JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
-        }
+//        boolean aux = userController.guardarUsuario(user);
+//        if (aux) {
+//            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+//            VentanaLogIn login = new VentanaLogIn();
+//            login.setVisible(true);
+//            login.setLocationRelativeTo(null);
+//            this.dispose();
+//        }else{
+//            JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+//        }
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
@@ -202,6 +214,7 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarse;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

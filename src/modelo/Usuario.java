@@ -4,23 +4,21 @@
  */
 package modelo;
 
-import modelo.RolDeUsuarios.Rol;
-
 /**
  *
  * @author nataliasabogalrada
  */
 public class Usuario {
-    
+
     protected String nombre;
     protected String cedula;
     protected int edad;
     protected String fechaNacimiento;
     protected String telefono;
     protected String password;
-    protected Rol rol;
+    protected RolUsuario rol;
 
-    public Usuario(String nombre, String cedula, int edad, String fechaNacimiento, String telefono, String password, Rol rol) {
+    public Usuario(String nombre, String cedula, int edad, String fechaNacimiento, String telefono, String password, RolUsuario rol) {
         this.nombre = nombre;
         this.cedula = cedula;
         this.edad = edad;
@@ -78,12 +76,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRol() {
+    public RolUsuario getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(RolUsuario rol) {
         this.rol = rol;
     }
-    
 }

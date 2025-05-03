@@ -8,10 +8,8 @@ package modelo;
  *
  * @author nataliasabogalrada
  */
-public class RolDeUsuarios {
+public class Cliente /*extends Usuario*/{
+
     
-    public enum Rol {
-        ADMINISTRADOR, EMPLEADO, CLIENTE
-    }
     
 }
