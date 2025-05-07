@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.ControladorLogIn;
+import controlador.ControladorUsuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import modelo.RolUsuario;
@@ -19,16 +19,17 @@ public class VentanaLogIn extends javax.swing.JFrame {
     /**
      * Creates new form VentanaLogIn
      */
-    ControladorLogIn loginController;
+    ControladorUsuario userController;
 
-    public VentanaLogIn() {
+    public VentanaLogIn(ControladorUsuario userController) {
         initComponents();
         this.setLocationRelativeTo(null);
         txtCedula.setText("Ingrese su cédula ");
         txtCedula.setForeground(Color.GRAY);
         txtContraseña.setText("********");
         txtContraseña.setForeground(Color.GRAY);
-        loginController = new ControladorLogIn();
+        this.userController = userController == null ? new ControladorUsuario() : userController;
+
     }
 
     /**
@@ -170,21 +171,21 @@ public class VentanaLogIn extends javax.swing.JFrame {
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         String cedula = txtCedula.getText();
         String password = String.valueOf(txtContraseña.getPassword());
-        Usuario aux = loginController.logIn(cedula, password);
+        Usuario aux = userController.logIn(cedula, password);
         if (aux != null) {
             if (aux.getRol() == RolUsuario.ADMINISTRADOR) {
-                VentanaAdmin admin = new VentanaAdmin();
+                VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController);
                 admin.setVisible(true);
                 admin.setLocationRelativeTo(null);
                 this.dispose();
             } else if (aux.getRol() == RolUsuario.EMPLEADO) {
-                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado();
+                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado(userController);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
 
             } else if (aux.getRol() == RolUsuario.CLIENTE) {
-                VentanaPrincipalCliente vista = new VentanaPrincipalCliente();
+                VentanaPrincipalCliente vista = new VentanaPrincipalCliente(userController);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
@@ -226,7 +227,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
         if (String.valueOf(txtContraseña.getPassword()).isEmpty()) {
             txtContraseña.setText("********");
             txtContraseña.setForeground(Color.GRAY);
-            txtContraseña.setEchoChar((char) 0); 
+            txtContraseña.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_txtContraseñaFocusLost
 
@@ -260,7 +261,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaLogIn().setVisible(true);
+                new VentanaLogIn(null).setVisible(true);
             }
         });
     }

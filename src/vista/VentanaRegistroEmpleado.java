@@ -4,11 +4,12 @@
  */
 package vista;
 
-import controlador.ContoladorEmpleado;
+import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.TipoPropiedad;
+import modelo.Usuario;
 
 
 
@@ -21,10 +22,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistroEmpleado
      */
-    ContoladorEmpleado empleadoController;
-    public VentanaRegistroEmpleado() {
+    ControladorUsuario userController;
+    public VentanaRegistroEmpleado(ControladorUsuario userController) {
         initComponents();
-        empleadoController = new ContoladorEmpleado();
+        this.userController = userController;
+        llenarTabla();
 
     }
 
@@ -57,6 +59,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtCantidadPropiedades = new javax.swing.JTextField();
         cbTipoPropiedad = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
+        btnEiminar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaEmpleado = new javax.swing.JTable();
 
         jTextField2.setText("jTextField2");
 
@@ -97,6 +104,20 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
 
         cbTipoPropiedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VENTA", "ARRENDAMIENTO", "AMBAS" }));
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEiminar.setText("Eliminar");
+        btnEiminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEiminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,7 +136,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
@@ -128,9 +149,16 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                     .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(btnRegistrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnEiminar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnRegistrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,27 +203,69 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btnRegistrar)
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnBuscar))
+                .addGap(10, 10, 10)
+                .addComponent(btnEiminar)
+                .addContainerGap())
+        );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
+
+        tablaEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaEmpleado);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
-        VentanaAdmin admin = new VentanaAdmin();
+        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController);
         admin.setVisible(true);
         admin.setLocationRelativeTo(null);
         this.dispose();
@@ -210,16 +280,60 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         String telefono = txtTelefono.getText();
         RolUsuario rolCliente = RolUsuario.EMPLEADO;
         int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
-        TipoPropiedad tipoPropiedadSeleccionado = (TipoPropiedad) cbTipoPropiedad.getSelectedItem();
-        Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = empleadoController.guardarEmpleado(empleado);
+        TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+        Usuario empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+        boolean aux = userController.guardarUsuario(empleado);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+            llenarTabla();
+            limpiarCampos();
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String cedula = txtCedula.getText();
+        Empleado empleado = userController.buscarEmpleado(cedula);
+        if (empleado != null) {
+            txtCantidadPropiedades.setText(empleado.getCantidadPropiedades()+"");
+            txtEdad.setText(empleado.getEdad()+"");
+            txtFecha.setText(empleado.getFechaNacimiento());
+            txtNombre.setText(empleado.getNombre());
+            txtPassword.setText(empleado.getPassword());
+            txtTelefono.setText(empleado.getTelefono());
+            cbTipoPropiedad.setSelectedItem(empleado.getTipoPropiedad().toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar un empleado con la cédula "+cedula);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEiminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEiminarActionPerformed
+        String cedula = txtCedula.getText();
+        boolean aux = userController.eliminarUsuario(cedula);
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Eliminado correctamente");
+            limpiarCampos();
+            llenarTabla();
+        }else{
+           JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+        }
+    }//GEN-LAST:event_btnEiminarActionPerformed
+
+    public void limpiarCampos (){
+        txtCantidadPropiedades.setText("");
+        txtCedula.setText("");
+        txtEdad.setText("");
+        txtFecha.setText("");
+        txtNombre.setText("");
+        txtPassword.setText("");
+        txtTelefono.setText("");
+        cbTipoPropiedad.setSelectedIndex(0);
+    }
+    
+    public void llenarTabla(){
+        tablaEmpleado.setModel(userController.llenarTablaEmpleado());
+    }
     /**
      * @param args the command line arguments
      */
@@ -250,13 +364,15 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroEmpleado().setVisible(true);
+                new VentanaRegistroEmpleado(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtrasAdminPagos;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEiminar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbTipoPropiedad;
     private javax.swing.JLabel jLabel1;
@@ -268,7 +384,10 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tablaEmpleado;
     private javax.swing.JTextField txtCantidadPropiedades;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtEdad;

@@ -40,7 +40,7 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Administrador">
+            <TitledBorder title="Historial">
               <Font PropertyName="font" name="Shree Devanagari 714" size="24" style="1"/>
             </TitledBorder>
           </Border>
@@ -50,18 +50,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnHistorialPropiedades" min="-2" pref="201" max="-2" attributes="0"/>
-                      <Component id="btnPropiedades" min="-2" pref="201" max="-2" attributes="0"/>
-                      <Component id="btnRegistrarCliente" min="-2" pref="201" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="134" max="32767" attributes="0"/>
-              </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnVolverLogin" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="309" max="32767" attributes="0"/>
+                  <Component id="btnAtras" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -70,43 +61,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnVolverLogin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="btnRegistrarCliente" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="btnPropiedades" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="btnHistorialPropiedades" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <Component id="btnAtras" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnRegistrarCliente">
+        <Component class="javax.swing.JButton" name="btnAtras">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Registar Cliente"/>
+            <Property name="text" type="java.lang.String" value="&#x293a;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarClienteActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnPropiedades">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Propiedades"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnHistorialPropiedades">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Historial Propiedades"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnVolverLogin">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Volver LogIn"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverLoginActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtrasActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

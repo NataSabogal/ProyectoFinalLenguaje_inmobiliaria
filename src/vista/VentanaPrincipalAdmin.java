@@ -4,19 +4,22 @@
  */
 package vista;
 
-import java.awt.CardLayout;
+import controlador.ControladorUsuario;
 
 /**
  *
  * @author nataliasabogalrada
  */
-public class VentanaAdmin extends javax.swing.JFrame {
+public class VentanaPrincipalAdmin extends javax.swing.JFrame {
 
     /**
      * Creates new form VenatanaAdmin
      */
-    public VentanaAdmin() {
+    ControladorUsuario userController;
+
+    public VentanaPrincipalAdmin(ControladorUsuario userController) {
         initComponents();
+        this.userController = userController;
     }
 
     /**
@@ -29,31 +32,36 @@ public class VentanaAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnRegistrarCliente = new javax.swing.JButton();
+        btnRegistrarEmpleado = new javax.swing.JButton();
         btnPropiedades = new javax.swing.JButton();
         btnHistorialPropiedades = new javax.swing.JButton();
-        btnVolverLogin = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuItemLogIn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Administrador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
-        btnRegistrarCliente.setText("Registar Cliente");
-        btnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarEmpleado.setText("Registar Empleado");
+        btnRegistrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarClienteActionPerformed(evt);
+                btnRegistrarEmpleadoActionPerformed(evt);
             }
         });
 
         btnPropiedades.setText("Propiedades");
+        btnPropiedades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPropiedadesActionPerformed(evt);
+            }
+        });
 
         btnHistorialPropiedades.setText("Historial Propiedades");
-
-        btnVolverLogin.setText("Volver LogIn");
-        btnVolverLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorialPropiedades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverLoginActionPerformed(evt);
+                btnHistorialPropiedadesActionPerformed(evt);
             }
         });
 
@@ -66,26 +74,35 @@ public class VentanaAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHistorialPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(134, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVolverLogin)
-                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVolverLogin)
-                .addGap(28, 28, 28)
-                .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnHistorialPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("X");
+        jMenu1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+
+        menuItemLogIn.setText("LogIn");
+        menuItemLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLogInActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemLogIn);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,19 +118,33 @@ public class VentanaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverLoginActionPerformed
-        VentanaLogIn login = new VentanaLogIn();
-        login.setVisible(true);
-        login.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_btnVolverLoginActionPerformed
-
-    private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
-        VentanaRegistroEmpleado empleado = new VentanaRegistroEmpleado();
+    private void btnRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmpleadoActionPerformed
+        VentanaRegistroEmpleado empleado = new VentanaRegistroEmpleado(userController);
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+    }//GEN-LAST:event_btnRegistrarEmpleadoActionPerformed
+
+    private void menuItemLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogInActionPerformed
+        VentanaLogIn login = new VentanaLogIn(userController);
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_menuItemLogInActionPerformed
+
+    private void btnHistorialPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPropiedadesActionPerformed
+        VentanaHistorialAdmin historial = new VentanaHistorialAdmin(userController);
+        historial.setVisible(true);
+        historial.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnHistorialPropiedadesActionPerformed
+
+    private void btnPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesActionPerformed
+        VentanaRegistroPropiedadAdmin propiedad = new VentanaRegistroPropiedadAdmin(userController);
+        propiedad.setVisible(true);
+        propiedad.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnPropiedadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,21 +163,23 @@ public class VentanaAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaAdmin().setVisible(true);
+                new VentanaPrincipalAdmin(null).setVisible(true);
             }
         });
     }
@@ -154,8 +187,10 @@ public class VentanaAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistorialPropiedades;
     private javax.swing.JButton btnPropiedades;
-    private javax.swing.JButton btnRegistrarCliente;
-    private javax.swing.JButton btnVolverLogin;
+    private javax.swing.JButton btnRegistrarEmpleado;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem menuItemLogIn;
     // End of variables declaration//GEN-END:variables
 }

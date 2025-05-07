@@ -4,6 +4,8 @@
  */
 package vista;
 
+import controlador.ControladorUsuario;
+
 /**
  *
  * @author nataliasabogalrada
@@ -13,8 +15,11 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaEmpleado
      */
-    public VentanaPrincipalEmpleado() {
+    ControladorUsuario userController;
+
+    public VentanaPrincipalEmpleado(ControladorUsuario userController) {
         initComponents();
+        this.userController = userController;
     }
 
     /**
@@ -26,11 +31,23 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnPropiedadesActivas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnGestionarPropiedades = new javax.swing.JButton();
         btnAgendarVisita = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHistorialEmpleado = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menuLogIN = new javax.swing.JMenuItem();
+        menuPopiedadesAct = new javax.swing.JMenu();
+        menuItemPropiedadesActivas = new javax.swing.JMenuItem();
+
+        btnPropiedadesActivas.setText("Propiedaes Activas");
+        btnPropiedadesActivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPropiedadesActivasActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,9 +68,12 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Propiedaes Activas");
-
-        jButton2.setText("Historial Propiedades");
+        btnHistorialEmpleado.setText("Historial Propiedades");
+        btnHistorialEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialEmpleadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -62,10 +82,9 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgendarVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGestionarPropiedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnHistorialEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -75,12 +94,38 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
                 .addComponent(btnGestionarPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnHistorialEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
+
+        jMenu1.setText("X");
+        jMenu1.setActionCommand("X");
+        jMenu1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+
+        menuLogIN.setText("LogIn");
+        menuLogIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLogINActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuLogIN);
+
+        jMenuBar1.add(jMenu1);
+
+        menuPopiedadesAct.setText("Propiedades Activas");
+
+        menuItemPropiedadesActivas.setText("Propiedades Activas");
+        menuItemPropiedadesActivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPropiedadesActivasActionPerformed(evt);
+            }
+        });
+        menuPopiedadesAct.add(menuItemPropiedadesActivas);
+
+        jMenuBar1.add(menuPopiedadesAct);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,12 +142,43 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionarPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPropiedadesActionPerformed
-        // TODO add your handling code here:
+        VentanaGestionarPropiedadesEmpleado empleado = new VentanaGestionarPropiedadesEmpleado(userController);
+        empleado.setVisible(true);
+        empleado.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnGestionarPropiedadesActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        // TODO add your handling code here:
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController);
+        visita.setVisible(true);
+        visita.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnAgendarVisitaActionPerformed
+
+    private void menuLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogINActionPerformed
+        VentanaLogIn login = new VentanaLogIn(userController);
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_menuLogINActionPerformed
+
+    private void btnPropiedadesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesActivasActionPerformed
+
+    }//GEN-LAST:event_btnPropiedadesActivasActionPerformed
+
+    private void menuItemPropiedadesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPropiedadesActivasActionPerformed
+        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController);
+        propiedades.setVisible(true);
+        propiedades.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_menuItemPropiedadesActivasActionPerformed
+
+    private void btnHistorialEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialEmpleadoActionPerformed
+        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController);
+        empleado.setVisible(true);
+        empleado.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnHistorialEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,7 +211,7 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalEmpleado().setVisible(true);
+                new VentanaPrincipalEmpleado(null).setVisible(true);
             }
         });
     }
@@ -143,8 +219,13 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendarVisita;
     private javax.swing.JButton btnGestionarPropiedades;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnHistorialEmpleado;
+    private javax.swing.JButton btnPropiedadesActivas;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuItem menuItemPropiedadesActivas;
+    private javax.swing.JMenuItem menuLogIN;
+    private javax.swing.JMenu menuPopiedadesAct;
     // End of variables declaration//GEN-END:variables
 }
