@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorPropiedad;
 import controlador.ControladorUsuario;
 
 /**
@@ -16,10 +17,13 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
      * Creates new form VentanaCliente
      */
     ControladorUsuario userController;
+    ControladorPropiedad propiedadController;
     
-    public VentanaPrincipalCliente(ControladorUsuario userController) {
+    
+    public VentanaPrincipalCliente(ControladorUsuario userController, ControladorPropiedad propiedadController) {
         initComponents();
         this.userController = userController;
+        this.propiedadController = propiedadController;
     }
 
     /**
@@ -157,7 +161,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogInActionPerformed
-        VentanaLogIn login = new VentanaLogIn(userController);
+        VentanaLogIn login = new VentanaLogIn(userController, propiedadController);
         login.setVisible(true);
         login.setLocationRelativeTo(null);
         this.dispose();
@@ -198,7 +202,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalCliente(null).setVisible(true);
+                new VentanaPrincipalCliente(null, null).setVisible(true);
             }
         });
     }

@@ -4,14 +4,13 @@
  */
 package vista;
 
+import controlador.ControladorPropiedad;
 import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.TipoPropiedad;
 import modelo.Usuario;
-
-
 
 /**
  *
@@ -23,9 +22,12 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaRegistroEmpleado
      */
     ControladorUsuario userController;
-    public VentanaRegistroEmpleado(ControladorUsuario userController) {
+    ControladorPropiedad propiedadController;
+
+    public VentanaRegistroEmpleado(ControladorUsuario userController, ControladorPropiedad propiedadController) {
         initComponents();
         this.userController = userController;
+        this.propiedadController = propiedadController;
         llenarTabla();
 
     }
@@ -265,7 +267,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
-        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController);
+        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController, propiedadController);
         admin.setVisible(true);
         admin.setLocationRelativeTo(null);
         this.dispose();
@@ -296,15 +298,15 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         String cedula = txtCedula.getText();
         Empleado empleado = userController.buscarEmpleado(cedula);
         if (empleado != null) {
-            txtCantidadPropiedades.setText(empleado.getCantidadPropiedades()+"");
-            txtEdad.setText(empleado.getEdad()+"");
+            txtCantidadPropiedades.setText(empleado.getCantidadPropiedades() + "");
+            txtEdad.setText(empleado.getEdad() + "");
             txtFecha.setText(empleado.getFechaNacimiento());
             txtNombre.setText(empleado.getNombre());
             txtPassword.setText(empleado.getPassword());
             txtTelefono.setText(empleado.getTelefono());
             cbTipoPropiedad.setSelectedItem(empleado.getTipoPropiedad().toString());
-        }else{
-            JOptionPane.showMessageDialog(null, "No se pudo encontrar un empleado con la cédula "+cedula);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar un empleado con la cédula " + cedula);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -315,12 +317,12 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Eliminado correctamente");
             limpiarCampos();
             llenarTabla();
-        }else{
-           JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar");
         }
     }//GEN-LAST:event_btnEiminarActionPerformed
 
-    public void limpiarCampos (){
+    public void limpiarCampos() {
         txtCantidadPropiedades.setText("");
         txtCedula.setText("");
         txtEdad.setText("");
@@ -330,10 +332,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         txtTelefono.setText("");
         cbTipoPropiedad.setSelectedIndex(0);
     }
-    
-    public void llenarTabla(){
+
+    public void llenarTabla() {
         tablaEmpleado.setModel(userController.llenarTablaEmpleado());
     }
+
     /**
      * @param args the command line arguments
      */
@@ -364,7 +367,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroEmpleado(null).setVisible(true);
+                new VentanaRegistroEmpleado(null, null).setVisible(true);
             }
         });
     }

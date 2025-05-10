@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorPropiedad;
 import controlador.ControladorUsuario;
 
 /**
@@ -16,10 +17,12 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaEmpleado
      */
     ControladorUsuario userController;
+    ControladorPropiedad propiedadController;
 
-    public VentanaPrincipalEmpleado(ControladorUsuario userController) {
+    public VentanaPrincipalEmpleado(ControladorUsuario userController,ControladorPropiedad propiedadController) {
         initComponents();
         this.userController = userController;
+        this.propiedadController = propiedadController;
     }
 
     /**
@@ -142,21 +145,21 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionarPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPropiedadesActionPerformed
-        VentanaGestionarPropiedadesEmpleado empleado = new VentanaGestionarPropiedadesEmpleado(userController);
+        VentanaGestionarPropiedadesEmpleado empleado = new VentanaGestionarPropiedadesEmpleado(userController, propiedadController);
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnGestionarPropiedadesActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController);
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, propiedadController);
         visita.setVisible(true);
         visita.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnAgendarVisitaActionPerformed
 
     private void menuLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogINActionPerformed
-        VentanaLogIn login = new VentanaLogIn(userController);
+        VentanaLogIn login = new VentanaLogIn(userController, propiedadController);
         login.setVisible(true);
         login.setLocationRelativeTo(null);
         this.dispose();
@@ -167,14 +170,14 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPropiedadesActivasActionPerformed
 
     private void menuItemPropiedadesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPropiedadesActivasActionPerformed
-        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController);
+        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController, propiedadController);
         propiedades.setVisible(true);
         propiedades.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_menuItemPropiedadesActivasActionPerformed
 
     private void btnHistorialEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialEmpleadoActionPerformed
-        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController);
+        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController, propiedadController);
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
@@ -211,7 +214,7 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalEmpleado(null).setVisible(true);
+                new VentanaPrincipalEmpleado(null, null).setVisible(true);
             }
         });
     }

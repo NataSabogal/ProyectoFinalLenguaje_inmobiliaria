@@ -4,7 +4,6 @@
  */
 package vista;
 
-import javax.swing.JOptionPane;
 import modelo.RolUsuario;
 import modelo.Usuario;
 
