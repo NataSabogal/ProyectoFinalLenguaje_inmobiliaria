@@ -8,6 +8,7 @@ import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.Usuario;
 
@@ -22,8 +23,9 @@ public class VentanaLogIn extends javax.swing.JFrame {
      */
     ControladorUsuario userController;
     ControladorInmueble inmController;
+    Empleado empleado;
 
-    public VentanaLogIn(ControladorUsuario userController, ControladorInmueble inmController) {
+    public VentanaLogIn(ControladorUsuario userController, ControladorInmueble inmController,Empleado empleado) {
         initComponents();
         this.setLocationRelativeTo(null);
         txtCedula.setText("Ingrese su cédula ");
@@ -32,6 +34,8 @@ public class VentanaLogIn extends javax.swing.JFrame {
         txtContraseña.setForeground(Color.GRAY);
         this.userController = userController == null ? new ControladorUsuario() : userController;
         this.inmController = inmController == null ? new ControladorInmueble(): inmController;
+        this.empleado = empleado;
+        
 
     }
 
@@ -182,7 +186,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
                 admin.setLocationRelativeTo(null);
                 this.dispose();
             } else if (aux.getRol() == RolUsuario.EMPLEADO) {
-                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado(userController, inmController);
+                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado(userController, inmController, empleado);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
@@ -264,7 +268,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaLogIn(null, null).setVisible(true);
+                new VentanaLogIn(null, null, null).setVisible(true);
             }
         });
     }

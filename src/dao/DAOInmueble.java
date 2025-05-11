@@ -6,7 +6,6 @@ package dao;
 
 import java.util.ArrayList;
 import modelo.Inmueble;
-import modelo.TipoPropiedad;
 
 /**
  *

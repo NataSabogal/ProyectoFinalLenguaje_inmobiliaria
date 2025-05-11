@@ -11,7 +11,7 @@ package modelo;
 public class Inmueble {
     
     private String id;
-    private PropiedadEstaSi propiedad;
+    private Propiedad propiedad;
     private double precio;
     private TipoPropiedad tipo;
     private boolean visita;
@@ -21,14 +21,14 @@ public class Inmueble {
     private String nombreResponsable;
     private String telResponsable;
 
-    public Inmueble(String id, PropiedadEstaSi propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, String descripcion, String nombreResponsable, String telResponsable) {
+    public Inmueble(String id, Propiedad propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, Empleado empleado, String descripcion, String nombreResponsable, String telResponsable) {
         this.id = id;
         this.propiedad = propiedad;
         this.precio = precio;
         this.tipo = tipo;
         this.visita = visita;
         this.disponible = disponible;
-        //this.empleado = empleado;
+        this.empleado = empleado;
         this.descripcion = descripcion;
         this.nombreResponsable = nombreResponsable;
         this.telResponsable = telResponsable;
@@ -44,11 +44,11 @@ public class Inmueble {
         this.id = id;
     }
 
-    public PropiedadEstaSi getPropiedad() {
+    public Propiedad getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(PropiedadEstaSi propiedad) {
+    public void setPropiedad(Propiedad propiedad) {
         this.propiedad = propiedad;
     }
 

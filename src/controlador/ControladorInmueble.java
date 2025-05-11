@@ -7,7 +7,9 @@ package controlador;
 import dao.DAOInmueble;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import modelo.Empleado;
 import modelo.Inmueble;
+import modelo.TipoPropiedad;
 
 /**
  *
@@ -25,7 +27,13 @@ public class ControladorInmueble {
         return daoI.buscarInmueble(id);
     }
 
-    public boolean guardarInmueble(Inmueble inmueble) {
+    public boolean guardarInmueble(Inmueble inmueble, Empleado empleado) {
+        if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
+                || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
+
+            return false;
+        }
+
         return daoI.guardarInmueble(inmueble);
     }
 
@@ -33,7 +41,12 @@ public class ControladorInmueble {
         return daoI.eliminarPropiedad(id);
     }
 
-    public boolean editarInmueble(Inmueble inmueble) {
+    public boolean editarInmueble(Inmueble inmueble, Empleado empleado) {
+        if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
+                || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
+            return false;
+        }
+
         return daoI.editarInmueble(inmueble);
     }
 
