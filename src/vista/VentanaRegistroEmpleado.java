@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.ControladorPropiedad;
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
@@ -22,12 +22,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaRegistroEmpleado
      */
     ControladorUsuario userController;
-    ControladorPropiedad propiedadController;
-
-    public VentanaRegistroEmpleado(ControladorUsuario userController, ControladorPropiedad propiedadController) {
+    ControladorInmueble inmController;
+    public VentanaRegistroEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
-        this.propiedadController = propiedadController;
+        this.inmController = inmController;
         llenarTabla();
 
     }
@@ -63,6 +62,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         cbTipoPropiedad = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         btnEiminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEmpleado = new javax.swing.JTable();
@@ -120,6 +120,13 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,14 +160,13 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnEiminar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegistrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69))))
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnEiminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(69, 69, 69))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +216,9 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
                     .addComponent(btnRegistrar)
                     .addComponent(btnBuscar))
                 .addGap(10, 10, 10)
-                .addComponent(btnEiminar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEiminar)
+                    .addComponent(btnEditar))
                 .addContainerGap())
         );
 
@@ -267,7 +275,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
-        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController, propiedadController);
+        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController, inmController);
         admin.setVisible(true);
         admin.setLocationRelativeTo(null);
         this.dispose();
@@ -322,6 +330,28 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEiminarActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String nombre = txtNombre.getText();
+        String cedula = txtCedula.getText();
+        int edad = Integer.parseInt(txtEdad.getText());
+        String fecha = txtFecha.getText();
+        String password = txtPassword.getText();
+        String telefono = txtTelefono.getText();
+        RolUsuario rolCliente = RolUsuario.EMPLEADO;
+        int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
+        TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+        Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+        boolean aux = userController.editarEmpleado(emp);
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Se editó correctamente");
+            llenarTabla();
+            limpiarCampos();
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo editar");
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     public void limpiarCampos() {
         txtCantidadPropiedades.setText("");
         txtCedula.setText("");
@@ -375,6 +405,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtrasAdminPagos;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEiminar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cbTipoPropiedad;

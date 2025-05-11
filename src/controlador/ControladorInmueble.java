@@ -14,7 +14,7 @@ import modelo.Inmueble;
  * @author nataliasabogalrada
  */
 public class ControladorInmueble {
-    
+
     DAOInmueble daoI;
 
     public ControladorInmueble() {
@@ -29,32 +29,41 @@ public class ControladorInmueble {
         return daoI.guardarInmueble(inmueble);
     }
 
+    public boolean eliminarPropiedad(String id) {
+        return daoI.eliminarPropiedad(id);
+    }
+
+    public boolean editarInmueble(Inmueble inmueble) {
+        return daoI.editarInmueble(inmueble);
+    }
+
     public ArrayList<Inmueble> getInmuebles() {
         return daoI.getInmuebles();
     }
-    
-//    public DefaultTableModel llenarTabla() {
-//        DefaultTableModel model = new DefaultTableModel();
-//        model.setColumnIdentifiers(new String[]{"Nombre Responsable", "TelefonoResponsable", "ID", "Dirección", "Ciudad", "Disponible", "Precio", "Tipo de Propiedad", "Visita", "Descripción"});
-//        ArrayList<Inmueble> lista = daoI.getInmuebles();
-//        for (int i = 0; i < lista.size(); i++) {
-//            model.addRow(new Object[]{
-//                lista.get(i).getNombreResponsable(),
-//                lista.get(i).getTelefonoResponsable(),
-//                lista.get(i).getId(),
-//                lista.get(i).getDireccion(),
-//                lista.get(i).getCiudad(),
-//                lista.get(i).isDisponible(),
-//                lista.get(i).getPrecio(),
-//                lista.get(i).getTipoP(),
-//                lista.get(i).isVisita(),
-//                lista.get(i).getDescripcion()
-//
-//            });
-//
-//        }
-//        return model;
-//    }
-    
-    
+
+    public DefaultTableModel llenarTabla() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"Nombre Responsable", "TelefonoResponsable", "ID", "Dirección", "Ciudad", "Número de Habitaciones", "Número de Baños", "Número de Plantas", "Tipo de Propiedad", "Disponible", "Visita", "Descripción", "Precio"});
+        ArrayList<Inmueble> lista = daoI.getInmuebles();
+        for (int i = 0; i < lista.size(); i++) {
+            model.addRow(new Object[]{
+                lista.get(i).getNombreResponsable(),
+                lista.get(i).getTelResponsable(),
+                lista.get(i).getId(),
+                lista.get(i).getPropiedad().getDireccion(),
+                lista.get(i).getPropiedad().getCiudad(),
+                lista.get(i).getPropiedad().getNumHabitaciones(),
+                lista.get(i).getPropiedad().getNunBanios(),
+                lista.get(i).getPropiedad().getNumPlantas(),
+                lista.get(i).getTipo(),
+                lista.get(i).isDisponible(),
+                lista.get(i).isVisita(),
+                lista.get(i).getDescripcion(),
+                lista.get(i).getPrecio()
+            });
+
+        }
+        return model;
+    }
+
 }

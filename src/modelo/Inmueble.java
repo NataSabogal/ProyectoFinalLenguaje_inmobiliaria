@@ -15,22 +15,26 @@ public class Inmueble {
     private double precio;
     private TipoPropiedad tipo;
     private boolean visita;
+    private boolean disponible;
     private Empleado empleado;
     private String descripcion;
     private String nombreResponsable;
     private String telResponsable;
 
-    public Inmueble(String id, PropiedadEstaSi propiedad, double precio, TipoPropiedad tipo, boolean visita, String descripcion, String nombreResponsable, String telResponsable) {
+    public Inmueble(String id, PropiedadEstaSi propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, String descripcion, String nombreResponsable, String telResponsable) {
         this.id = id;
         this.propiedad = propiedad;
         this.precio = precio;
         this.tipo = tipo;
         this.visita = visita;
+        this.disponible = disponible;
         //this.empleado = empleado;
         this.descripcion = descripcion;
         this.nombreResponsable = nombreResponsable;
         this.telResponsable = telResponsable;
     }
+
+    
 
     public String getId() {
         return id;
@@ -103,7 +107,13 @@ public class Inmueble {
     public void setTelResponsable(String telResponsable) {
         this.telResponsable = telResponsable;
     }
-    
-    
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
     
 }

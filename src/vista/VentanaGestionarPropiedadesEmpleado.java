@@ -4,11 +4,10 @@
  */
 package vista;
 
-import controlador.ControladorPropiedad;
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelo.Inmueble;
-import modelo.Propiedad;
 import modelo.PropiedadEstaSi;
 import modelo.TipoPropiedad;
 
@@ -22,13 +21,13 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaGestionarPropiedadesEmpleado
      */
     ControladorUsuario userController;
-    ControladorPropiedad propiedadController;
+    ControladorInmueble inmController;
 
-    public VentanaGestionarPropiedadesEmpleado(ControladorUsuario userController, ControladorPropiedad propiedadController) {
+    public VentanaGestionarPropiedadesEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
-        this.propiedadController = propiedadController == null ? new ControladorPropiedad() : propiedadController;
-//        llenarTabla();
+        this.inmController = inmController == null ? new ControladorInmueble() : inmController;
+        llenarTabla();
     }
 
     /**
@@ -58,6 +57,8 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         chBxVisita = new javax.swing.JCheckBox();
         btnGuardar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaP = new javax.swing.JTable();
@@ -112,36 +113,33 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(btnGuardar)
-                .addGap(92, 92, 92)
-                .addComponent(btnBuscar)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(130, 130, 130)
-                        .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(150, 150, 150)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chBxDisponible)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chBxVisita)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 23, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -156,11 +154,39 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(130, 130, 130)
+                                .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(150, 150, 150)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chBxDisponible)
+                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(chBxVisita)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnEliminar))
+                        .addGap(92, 92, 92)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditar)
+                            .addComponent(btnBuscar))
+                        .addGap(75, 75, 75))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,27 +205,31 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 30, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(32, 32, 32)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(28, 28, 28)
                 .addComponent(chBxDisponible)
-                .addGap(34, 34, 34)
+                .addGap(26, 26, 26)
                 .addComponent(chBxVisita)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnBuscar))
-                .addContainerGap())
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnEditar))
+                .addGap(47, 47, 47))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -219,6 +249,11 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaP);
 
         btnAgendarVisita.setText("Agendar Visita");
+        btnAgendarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarVisitaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -226,11 +261,11 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 386, Short.MAX_VALUE)
+                        .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -240,7 +275,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(btnAgendarVisita)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -301,11 +336,11 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(spinnerNumBanios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(spinnerNumPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -322,18 +357,18 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, propiedadController);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -355,55 +390,117 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 int numBanios = (Integer) spinnerNumBanios.getValue();
                 int numPlantas = (Integer) spinnerNumPlantas.getValue();
                 PropiedadEstaSi propiedadEsta = new PropiedadEstaSi(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-                Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, direccion, nombreReponsable, telefono);
-                boolean aux 
+                Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, direccion, nombreReponsable, telefono);
+                boolean aux = inmController.guardarInmueble(inmueble);
+                if (aux) {
+                    JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
+                    limpiarCampos();
+                    llenarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Asegrese de llenar la información de la propiedad");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos para poder ser registrado");
         }
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        
-//        String descripcion = txtDescripcion.getText();
-//        Propiedad propiedad = new Propiedad(id, direccion, ciudad, disponible, precio, tipPropiedad, visita, descripcion, nombreReponsable, telefono);
-//        boolean aux = propiedadController.guardarPropiedad(propiedad);
-//        if (aux) {
-//            JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
-//            llenarTabla();
-//            limpiarCampos();
-//        }else{
-//            JOptionPane.showMessageDialog(null, "No se pudo guardar la propiedad");
-//        }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String id = txtID.getText();
+        Inmueble inmueble = inmController.buscarInmueble(id);
+        if (inmueble != null) {
+            txtCiudad.setText(inmueble.getPropiedad().getCiudad());
+            txtDescripcion.setText(inmueble.getDescripcion());
+            txtDireccion.setText(inmueble.getPropiedad().getDireccion());
+            txtID.setText(inmueble.getId());
+            txtNombreRespnsable.setText(inmueble.getNombreResponsable());
+            txtPrecio.setText(inmueble.getPrecio() + "");
+            txtTelefono.setText(inmueble.getTelResponsable());
+            cbTipoPropiedad.setSelectedItem(inmueble.getTipo().toString());
+            spinnerNumBanios.setValue(inmueble.getPropiedad().getNunBanios());
+            spinnerNumHabitacion.setValue(inmueble.getPropiedad().getNumHabitaciones());
+            spinnerNumPlantas.setValue(inmueble.getPropiedad().getNumPlantas());
+            chBxDisponible.setSelected(inmueble.isDisponible());
+            chBxVisita.setSelected(inmueble.isVisita());
+            JOptionPane.showMessageDialog(null, "Se encontró");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar");
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, inmController);
+        visita.setVisible(true);
+        visita.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnAgendarVisitaActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String nombreReponsable = txtNombreRespnsable.getText();
+        String telefono = txtTelefono.getText();
+        String id = txtID.getText();
+        double precio = Double.parseDouble(txtPrecio.getText());
+        TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+        boolean disponible = chBxDisponible.isSelected();
+        boolean visita = chBxVisita.isSelected();
+        String direccion = txtDireccion.getText();
+        String ciudad = txtCiudad.getText();
+        int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+        int numBanios = (Integer) spinnerNumBanios.getValue();
+        int numPlantas = (Integer) spinnerNumPlantas.getValue();
+        PropiedadEstaSi propiedadEsta = new PropiedadEstaSi(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, direccion, nombreReponsable, telefono);
+        boolean aux = inmController.editarInmueble(inmueble);
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Se editó correctamente");
+            llenarTabla();
+            limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo editar");
+        }
+
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String id = txtID.getText();
+        boolean aux = inmController.eliminarPropiedad(id);
+        if (aux) {
+            JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+            llenarTabla();
+            limpiarCampos();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar correctamente");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-//    public void limpiarCampos (){
-//        txtCiudad.setText("");
-//        txtDescripcion.setText("");
-//        txtDireccion.setText("");
-//        txtID.setText("");
-//        txtNombreRespnsable.setText("");
-//        txtPrecio.setText("");
-//        txtTelefono.setText("");
-//        chBxDisponible.setSelected(false);
-//        chBxVisita.setSelected(false);
-//        cbTipoPropiedad.setSelectedIndex(0);
-//        
-//    }
-//    public void llenarTabla (){
-//        tablaP.setModel(propiedadController.llenarTabla());
-//        
-//    }
+    public void limpiarCampos() {
+        txtCiudad.setText("");
+        txtDescripcion.setText("");
+        txtDireccion.setText("");
+        txtID.setText("");
+        txtNombreRespnsable.setText("");
+        txtPrecio.setText("");
+        txtTelefono.setText("");
+        chBxDisponible.setSelected(false);
+        chBxVisita.setSelected(false);
+        cbTipoPropiedad.setSelectedIndex(0);
+        spinnerNumBanios.setValue(0);
+        spinnerNumHabitacion.setValue(0);
+        spinnerNumPlantas.setValue(0);
+
+    }
+
+    public void llenarTabla() {
+        tablaP.setModel(inmController.llenarTabla());
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -440,6 +537,8 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnAgendarVisita;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbTipoPropiedad;
     private javax.swing.JCheckBox chBxDisponible;

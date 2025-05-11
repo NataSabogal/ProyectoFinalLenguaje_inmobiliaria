@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.ControladorPropiedad;
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 
 /**
@@ -17,12 +17,12 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaEmpleado
      */
     ControladorUsuario userController;
-    ControladorPropiedad propiedadController;
+    ControladorInmueble inmController;
 
-    public VentanaPrincipalEmpleado(ControladorUsuario userController,ControladorPropiedad propiedadController) {
+    public VentanaPrincipalEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
-        this.propiedadController = propiedadController;
+        this.inmController = inmController;
     }
 
     /**
@@ -37,13 +37,11 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         btnPropiedadesActivas = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnGestionarPropiedades = new javax.swing.JButton();
-        btnAgendarVisita = new javax.swing.JButton();
+        btnPropiedadesA = new javax.swing.JButton();
         btnHistorialEmpleado = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuLogIN = new javax.swing.JMenuItem();
-        menuPopiedadesAct = new javax.swing.JMenu();
-        menuItemPropiedadesActivas = new javax.swing.JMenuItem();
 
         btnPropiedadesActivas.setText("Propiedaes Activas");
         btnPropiedadesActivas.addActionListener(new java.awt.event.ActionListener() {
@@ -64,10 +62,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
             }
         });
 
-        btnAgendarVisita.setText("Agendar Visita");
-        btnAgendarVisita.addActionListener(new java.awt.event.ActionListener() {
+        btnPropiedadesA.setText("Propiedades Activas");
+        btnPropiedadesA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgendarVisitaActionPerformed(evt);
+                btnPropiedadesAActionPerformed(evt);
             }
         });
 
@@ -85,7 +83,7 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAgendarVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPropiedadesA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGestionarPropiedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHistorialEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(155, Short.MAX_VALUE))
@@ -96,14 +94,13 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(btnGestionarPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPropiedadesA, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(btnHistorialEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
         jMenu1.setText("X");
-        jMenu1.setActionCommand("X");
         jMenu1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
 
         menuLogIN.setText("LogIn");
@@ -115,18 +112,6 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         jMenu1.add(menuLogIN);
 
         jMenuBar1.add(jMenu1);
-
-        menuPopiedadesAct.setText("Propiedades Activas");
-
-        menuItemPropiedadesActivas.setText("Propiedades Activas");
-        menuItemPropiedadesActivas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemPropiedadesActivasActionPerformed(evt);
-            }
-        });
-        menuPopiedadesAct.add(menuItemPropiedadesActivas);
-
-        jMenuBar1.add(menuPopiedadesAct);
 
         setJMenuBar(jMenuBar1);
 
@@ -145,21 +130,21 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionarPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPropiedadesActionPerformed
-        VentanaGestionarPropiedadesEmpleado empleado = new VentanaGestionarPropiedadesEmpleado(userController, propiedadController);
+        VentanaGestionarPropiedadesEmpleado empleado = new VentanaGestionarPropiedadesEmpleado(userController, inmController);
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnGestionarPropiedadesActionPerformed
 
-    private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, propiedadController);
-        visita.setVisible(true);
-        visita.setLocationRelativeTo(null);
+    private void btnPropiedadesAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesAActionPerformed
+        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController, inmController);
+        propiedades.setVisible(true);
+        propiedades.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_btnAgendarVisitaActionPerformed
+    }//GEN-LAST:event_btnPropiedadesAActionPerformed
 
     private void menuLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogINActionPerformed
-        VentanaLogIn login = new VentanaLogIn(userController, propiedadController);
+        VentanaLogIn login = new VentanaLogIn(userController, inmController);
         login.setVisible(true);
         login.setLocationRelativeTo(null);
         this.dispose();
@@ -169,15 +154,8 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPropiedadesActivasActionPerformed
 
-    private void menuItemPropiedadesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPropiedadesActivasActionPerformed
-        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController, propiedadController);
-        propiedades.setVisible(true);
-        propiedades.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_menuItemPropiedadesActivasActionPerformed
-
     private void btnHistorialEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialEmpleadoActionPerformed
-        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController, propiedadController);
+        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController, inmController);
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
@@ -220,15 +198,13 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgendarVisita;
     private javax.swing.JButton btnGestionarPropiedades;
     private javax.swing.JButton btnHistorialEmpleado;
+    private javax.swing.JButton btnPropiedadesA;
     private javax.swing.JButton btnPropiedadesActivas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JMenuItem menuItemPropiedadesActivas;
     private javax.swing.JMenuItem menuLogIN;
-    private javax.swing.JMenu menuPopiedadesAct;
     // End of variables declaration//GEN-END:variables
 }
