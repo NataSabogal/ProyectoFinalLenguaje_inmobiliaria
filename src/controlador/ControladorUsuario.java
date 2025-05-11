@@ -34,8 +34,8 @@ public class ControladorUsuario {
         return daoU.eliminarUsuario(cedula);
     }
 
-    public boolean editarUsuario(Usuario user) {
-        return daoU.editarUsuario(user);
+    public boolean editarEmpleado(Empleado empleado) {
+        return daoU.editarEmpleado(empleado);
     }
 
     public Empleado buscarEmpleado(String cedula) {

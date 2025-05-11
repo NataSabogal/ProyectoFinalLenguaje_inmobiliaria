@@ -48,14 +48,17 @@ public class DAOUsuario {
         return false;
     }
 
-    public boolean editarUsuario(Usuario user) {
-        Usuario aux = buscarUsuario(user.getCedula());
+    public boolean editarEmpleado(Empleado empleado) {
+        Empleado aux = buscarEmpleado(empleado.getCedula());
         if (aux != null) {
-            aux.setEdad(user.getEdad());
-            aux.setFechaNacimiento(user.getFechaNacimiento());
-            aux.setNombre(user.getNombre());
-            aux.setPassword(user.getPassword());
-            aux.setTelefono(user.getTelefono());
+            aux.setEdad(empleado.getEdad());
+            aux.setFechaNacimiento(empleado.getFechaNacimiento());
+            aux.setNombre(empleado.getNombre());
+            aux.setPassword(empleado.getPassword());
+            aux.setTelefono(empleado.getTelefono());
+            aux.setCantidadPropiedades(empleado.getCantidadPropiedades());
+            aux.setTipoPropiedad(empleado.getTipoPropiedad());
+
             return true;
         }
         return false;
@@ -93,6 +96,5 @@ public class DAOUsuario {
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
-    
-    
+
 }

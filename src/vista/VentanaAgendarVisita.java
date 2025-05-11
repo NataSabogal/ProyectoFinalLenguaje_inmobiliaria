@@ -4,8 +4,8 @@
  */
 package vista;
 
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
-
 
 /**
  *
@@ -17,9 +17,12 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
      * Creates new form VentanaAgendarVisita
      */
     ControladorUsuario userController;
-    public VentanaAgendarVisita(ControladorUsuario userController) {
+    ControladorInmueble inmController;
+
+    public VentanaAgendarVisita(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
+        this.inmController = inmController;
     }
 
     /**
@@ -78,7 +81,7 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -114,7 +117,7 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaAgendarVisita(null).setVisible(true);
+                new VentanaAgendarVisita(null, null).setVisible(true);
             }
         });
     }

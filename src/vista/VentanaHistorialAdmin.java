@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 
 /**
@@ -16,10 +17,12 @@ public class VentanaHistorialAdmin extends javax.swing.JFrame {
      * Creates new form VentanaHistorialAdmin
      */
     ControladorUsuario userController;
-
-    public VentanaHistorialAdmin(ControladorUsuario userController) {
+    ControladorInmueble inmController;
+    
+    public VentanaHistorialAdmin(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
+        this.inmController = inmController;
     }
 
     /**
@@ -98,7 +101,7 @@ public class VentanaHistorialAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin(userController);
+        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin(userController, inmController);
         principal.setVisible(true);
         principal.setLocationRelativeTo(this);
         this.dispose();
@@ -134,7 +137,7 @@ public class VentanaHistorialAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaHistorialAdmin(null).setVisible(true);
+                new VentanaHistorialAdmin(null, null).setVisible(true);
             }
         });
     }

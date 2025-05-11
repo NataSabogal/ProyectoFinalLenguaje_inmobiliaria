@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
 
 /**
@@ -16,9 +17,11 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
      * Creates new form VentanaRegistroPropiedadAdmin
      */
     ControladorUsuario userController;
-    public VentanaRegistroPropiedadAdmin(ControladorUsuario userController) {
+    ControladorInmueble inmController;
+    public VentanaRegistroPropiedadAdmin(ControladorUsuario userController, ControladorInmueble inmController) {
         initComponents();
         this.userController = userController;
+        this.inmController = inmController;
     }
 
     /**
@@ -77,7 +80,7 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtras1ActionPerformed
-        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin(userController);
+        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin(userController, inmController);
         principal.setVisible(true);
         principal.setLocationRelativeTo(this);
         this.dispose();
@@ -113,7 +116,7 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroPropiedadAdmin(null).setVisible(true);
+                new VentanaRegistroPropiedadAdmin(null, null).setVisible(true);
             }
         });
     }

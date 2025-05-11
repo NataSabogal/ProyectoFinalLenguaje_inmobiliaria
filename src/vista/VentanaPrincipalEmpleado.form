@@ -30,21 +30,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuPopiedadesAct">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Propiedades Activas"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemPropiedadesActivas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Propiedades Activas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemPropiedadesActivasActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -101,7 +86,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnAgendarVisita" max="32767" attributes="0"/>
+                      <Component id="btnPropiedadesA" max="32767" attributes="0"/>
                       <Component id="btnGestionarPropiedades" max="32767" attributes="0"/>
                       <Component id="btnHistorialEmpleado" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -115,7 +100,7 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="btnGestionarPropiedades" min="-2" pref="56" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="btnAgendarVisita" min="-2" pref="58" max="-2" attributes="0"/>
+                  <Component id="btnPropiedadesA" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Component id="btnHistorialEmpleado" min="-2" pref="58" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -132,12 +117,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGestionarPropiedadesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAgendarVisita">
+        <Component class="javax.swing.JButton" name="btnPropiedadesA">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Agendar Visita"/>
+            <Property name="text" type="java.lang.String" value="Propiedades Activas"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgendarVisitaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPropiedadesAActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnHistorialEmpleado">
