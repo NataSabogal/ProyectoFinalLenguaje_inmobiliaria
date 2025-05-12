@@ -30,6 +30,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         this.userController = userController;
         this.inmController = inmController == null ? new ControladorInmueble() : inmController;
         this.empleado = empleado;
+        txtEmpleado.setText(empleado.getCedula());
         configurarComboBox(empleado);
         llenarTabla();
     }
@@ -384,7 +385,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController, empleado);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -446,7 +447,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, inmController);
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, inmController, empleado);
         visita.setVisible(true);
         visita.setLocationRelativeTo(null);
         this.dispose();

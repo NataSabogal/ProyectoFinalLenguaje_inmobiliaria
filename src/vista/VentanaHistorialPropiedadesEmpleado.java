@@ -6,6 +6,7 @@ package vista;
 
 import controlador.ControladorInmueble;
 import controlador.ControladorUsuario;
+import modelo.Empleado;
 
 /**
  *
@@ -18,11 +19,13 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
      */
     ControladorUsuario userController;
     ControladorInmueble inmController;
+    Empleado empleado;
     
-    public VentanaHistorialPropiedadesEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
+    public VentanaHistorialPropiedadesEmpleado(ControladorUsuario userController, ControladorInmueble inmController, Empleado empleado) {
         initComponents();
         this.userController = userController;
         this.inmController = inmController;
+        this.empleado = empleado;
     }
 
     /**
@@ -81,7 +84,7 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController, empleado);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -117,7 +120,7 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaHistorialPropiedadesEmpleado(null, null).setVisible(true);
+                new VentanaHistorialPropiedadesEmpleado(null, null, null).setVisible(true);
             }
         });
     }
