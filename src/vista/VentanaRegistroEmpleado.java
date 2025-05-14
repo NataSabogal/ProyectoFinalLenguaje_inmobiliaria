@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.TipoPropiedad;
-import modelo.Usuario;
 
 /**
  *
@@ -20,8 +19,8 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistroEmpleado
      */
-        private ControladorEmpleado empleadoController;
-        
+    private ControladorEmpleado empleadoController;
+
     public VentanaRegistroEmpleado() {
         initComponents();
         empleadoController = new ControladorEmpleado();
@@ -280,24 +279,30 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasAdminPagosActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        String nombre = txtNombre.getText();
-        String cedula = txtCedula.getText();
-        int edad = Integer.parseInt(txtEdad.getText());
-        String fecha = txtFecha.getText();
-        String password = txtPassword.getText();
-        String telefono = txtTelefono.getText();
-        RolUsuario rolCliente = RolUsuario.EMPLEADO;
-        int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
-        TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-        Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = empleadoController.guardarEmpleado(empleado);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-            llenarTabla();
-            limpiarCampos();
+        if (!txtCedula.getText().isEmpty() && !txtCantidadPropiedades.getText().isEmpty()
+                && !txtEdad.getText().isEmpty() && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+            String nombre = txtNombre.getText();
+            String cedula = txtCedula.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String fecha = txtFecha.getText();
+            String password = txtPassword.getText();
+            String telefono = txtTelefono.getText();
+            RolUsuario rolCliente = RolUsuario.EMPLEADO;
+            int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
+            TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+            Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+            boolean aux = empleadoController.guardarEmpleado(empleado);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+                llenarTabla();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -329,25 +334,33 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEiminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String nombre = txtNombre.getText();
-        String cedula = txtCedula.getText();
-        int edad = Integer.parseInt(txtEdad.getText());
-        String fecha = txtFecha.getText();
-        String password = txtPassword.getText();
-        String telefono = txtTelefono.getText();
-        RolUsuario rolCliente = RolUsuario.EMPLEADO;
-        int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
-        TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-        Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = empleadoController.editarEmpleado(emp);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Se editó correctamente");
-            llenarTabla();
-            limpiarCampos();
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "No se pudo editar");
+        if (!txtCedula.getText().isEmpty() && !txtCantidadPropiedades.getText().isEmpty()
+                && !txtEdad.getText().isEmpty() && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+
+            String nombre = txtNombre.getText();
+            String cedula = txtCedula.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String fecha = txtFecha.getText();
+            String password = txtPassword.getText();
+            String telefono = txtTelefono.getText();
+            RolUsuario rolCliente = RolUsuario.EMPLEADO;
+            int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
+            TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+            Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+            boolean aux = empleadoController.editarEmpleado(emp);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Se editó correctamente");
+                llenarTabla();
+                limpiarCampos();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo editar");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     public void limpiarCampos() {

@@ -36,6 +36,9 @@ public class ControladorInmueble {
 
             return false;
         }
+        if (daoI.getInmuebles().size() >= empleado.getCantidadPropiedades()) {
+            return false;
+        }
         return daoI.guardarInmueble(inmueble);
     }
 

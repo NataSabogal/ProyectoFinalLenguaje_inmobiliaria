@@ -198,27 +198,34 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        String nombre = txtNombre.getText();
-        String cedula = txtCedula.getText();
-        int edad = Integer.parseInt(txtEdad.getText());
-        String fecha = txtFecha.getText();
-        String password = txtPassword.getText();
-        String telefono = txtTelefono.getText();
-        RolUsuario rolCliente = RolUsuario.CLIENTE;
-        String direccionR = txtDirecciondeResidencia.getText();
-        String ciudad = txtCiudad.getText();
-        String ocupacion = txtOcupacion.getText();
-        Cliente cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = clienteController.guardarCliente(cliente);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-            VentanaLogIn login = new VentanaLogIn();
-            login.setVisible(true);
-            login.setLocationRelativeTo(null);
-            this.dispose();
+        if (!txtCedula.getText().isEmpty() && !txtCiudad.getText().isEmpty() && !txtDirecciondeResidencia.getText().isEmpty() && !txtEdad.getText().isEmpty()
+                && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtOcupacion.getText().isEmpty()
+                && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+            String nombre = txtNombre.getText();
+            String cedula = txtCedula.getText();
+            int edad = Integer.parseInt(txtEdad.getText());
+            String fecha = txtFecha.getText();
+            String password = txtPassword.getText();
+            String telefono = txtTelefono.getText();
+            RolUsuario rolCliente = RolUsuario.CLIENTE;
+            String direccionR = txtDirecciondeResidencia.getText();
+            String ciudad = txtCiudad.getText();
+            String ocupacion = txtOcupacion.getText();
+            Cliente cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+            boolean aux = clienteController.guardarCliente(cliente);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Registro Exitoso!");
+                VentanaLogIn login = new VentanaLogIn();
+                login.setVisible(true);
+                login.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }
+
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
