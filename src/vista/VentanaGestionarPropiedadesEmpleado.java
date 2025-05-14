@@ -5,10 +5,10 @@
 package vista;
 
 import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
+import modelo.Empleado;
 import modelo.Inmueble;
-import modelo.PropiedadEstaSi;
+import modelo.Propiedad;
 import modelo.TipoPropiedad;
 
 /**
@@ -20,13 +20,15 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaGestionarPropiedadesEmpleado
      */
-    ControladorUsuario userController;
+    
     ControladorInmueble inmController;
-
-    public VentanaGestionarPropiedadesEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
+    Empleado empleado;
+    
+    public VentanaGestionarPropiedadesEmpleado(Empleado empleado) {//aquí parametro
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController == null ? new ControladorInmueble() : inmController;
+        inmController = new ControladorInmueble(empleado);// aquí argumento
+        this.empleado = empleado;
+        configurarComboBox(empleado);
         llenarTabla();
     }
 
@@ -137,6 +139,21 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnEliminar))
+                        .addGap(92, 92, 92)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditar)
+                            .addComponent(btnBuscar))
+                        .addGap(75, 75, 75))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,9 +168,9 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6))
                                 .addGap(67, 67, 67)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                    .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,28 +189,13 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                                     .addComponent(chBxVisita)
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnEliminar))
-                        .addGap(92, 92, 92)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditar)
-                            .addComponent(btnBuscar))
-                        .addGap(75, 75, 75))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAtras)
-                .addGap(32, 32, 32)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -275,7 +277,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(btnAgendarVisita)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -361,14 +363,14 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(empleado);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -376,32 +378,32 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtCiudad.getText().isEmpty() && !txtDescripcion.getText().isEmpty() && !txtDireccion.getText().isEmpty() && !txtID.getText().isEmpty() && !txtNombreRespnsable.getText().isEmpty() && !txtPrecio.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            if (!txtDireccion.getText().isEmpty() && !txtCiudad.getText().isEmpty()) {
-                String nombreReponsable = txtNombreRespnsable.getText();
-                String telefono = txtTelefono.getText();
-                String id = txtID.getText();
-                double precio = Double.parseDouble(txtPrecio.getText());
-                TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-                boolean disponible = chBxDisponible.isSelected();
-                boolean visita = chBxVisita.isSelected();
-                String direccion = txtDireccion.getText();
-                String ciudad = txtCiudad.getText();
-                int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
-                int numBanios = (Integer) spinnerNumBanios.getValue();
-                int numPlantas = (Integer) spinnerNumPlantas.getValue();
-                PropiedadEstaSi propiedadEsta = new PropiedadEstaSi(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-                Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, direccion, nombreReponsable, telefono);
-                boolean aux = inmController.guardarInmueble(inmueble);
-                if (aux) {
-                    JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
-                    limpiarCampos();
-                    llenarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar");
-                }
+            String nombreReponsable = txtNombreRespnsable.getText();
+            String telefono = txtTelefono.getText();
+            String id = txtID.getText();
+            double precio = Double.parseDouble(txtPrecio.getText());
+            TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+            boolean disponible = chBxDisponible.isSelected();
+            boolean visita = chBxVisita.isSelected();
+            String direccion = txtDireccion.getText();
+            String ciudad = txtCiudad.getText();
+            String descripcion = txtDescripcion.getText();
+            int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+            int numBanios = (Integer) spinnerNumBanios.getValue();
+            int numPlantas = (Integer) spinnerNumPlantas.getValue();
+            Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+            
+            //Empleado empleadoActual = userController.buscarEmpleado(txtEmpleado.getText());
+            Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleado, descripcion, nombreReponsable, telefono);
+            boolean aux = inmController.guardarInmueble(inmueble, empleado);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
+                limpiarCampos();
+                llenarTabla();
             } else {
-                JOptionPane.showMessageDialog(null, "Asegrese de llenar la información de la propiedad");
+                JOptionPane.showMessageDialog(null, "No se pudo guardar");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos para poder ser registrado");
         }
@@ -431,7 +433,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, inmController);
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(empleado);
         visita.setVisible(true);
         visita.setLocationRelativeTo(null);
         this.dispose();
@@ -447,17 +449,18 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         boolean visita = chBxVisita.isSelected();
         String direccion = txtDireccion.getText();
         String ciudad = txtCiudad.getText();
+        String descripcion = txtDescripcion.getText();
         int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
         int numBanios = (Integer) spinnerNumBanios.getValue();
         int numPlantas = (Integer) spinnerNumPlantas.getValue();
-        PropiedadEstaSi propiedadEsta = new PropiedadEstaSi(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, direccion, nombreReponsable, telefono);
-        boolean aux = inmController.editarInmueble(inmueble);
+        Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleado, descripcion, nombreReponsable, telefono);
+        boolean aux = inmController.editarInmueble(inmueble, empleado);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Se editó correctamente");
             llenarTabla();
             limpiarCampos();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No se pudo editar");
         }
 
@@ -470,7 +473,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
             llenarTabla();
             limpiarCampos();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo eliminar correctamente");
         }
@@ -501,6 +504,19 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
 
     }
 
+    private void configurarComboBox(Empleado empleado) {
+        cbTipoPropiedad.removeAllItems();
+
+        if (empleado.getTipoPropiedad() == TipoPropiedad.VENTA) {
+            cbTipoPropiedad.addItem("VENTA");
+        } else if (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO) {
+            cbTipoPropiedad.addItem("ARRENDAMIENTO");
+        } else {
+            cbTipoPropiedad.addItem("VENTA");
+            cbTipoPropiedad.addItem("ARRENDAMIENTO");
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -528,7 +544,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaGestionarPropiedadesEmpleado(null, null).setVisible(true);
+                new VentanaGestionarPropiedadesEmpleado(null).setVisible(true);
             }
         });
     }

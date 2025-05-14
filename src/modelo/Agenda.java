@@ -4,21 +4,26 @@
  */
 package modelo;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public class Agenda {
+public class Agenda implements Serializable{
 
     private String id;
     private Propiedad propiedad;
-    private String fecha;
+    private LocalDate fecha;
     private Cliente cliente;
-    private int horaInicio;
-    private int horaFinal;
+    private LocalTime horaInicio;
+    private LocalTime horaFinal;
     private boolean opcionVisita;
+    private String estado;
 
-    public Agenda(String id, Propiedad propiedad, String fecha, Cliente cliente, int horaInicio, int horaFinal, boolean opcionVisita) {
+    public Agenda(String id, Propiedad propiedad, LocalDate fecha, Cliente cliente, LocalTime horaInicio, LocalTime horaFinal, boolean opcionVisita, String estado) {
         this.id = id;
         this.propiedad = propiedad;
         this.fecha = fecha;
@@ -26,6 +31,7 @@ public class Agenda {
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.opcionVisita = opcionVisita;
+        this.estado = estado;
     }
 
     public String getId() {
@@ -44,11 +50,11 @@ public class Agenda {
         this.propiedad = propiedad;
     }
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -60,19 +66,19 @@ public class Agenda {
         this.cliente = cliente;
     }
 
-    public int getHoraInicio() {
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(int horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public int getHoraFinal() {
+    public LocalTime getHoraFinal() {
         return horaFinal;
     }
 
-    public void setHoraFinal(int horaFinal) {
+    public void setHoraFinal(LocalTime horaFinal) {
         this.horaFinal = horaFinal;
     }
 
@@ -84,4 +90,11 @@ public class Agenda {
         this.opcionVisita = opcionVisita;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }

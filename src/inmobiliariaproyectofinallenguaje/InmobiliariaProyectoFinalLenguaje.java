@@ -4,6 +4,9 @@
  */
 package inmobiliariaproyectofinallenguaje;
 
+import vista.VentanaLogIn;
+
+
 /**
  *
  * @author nataliasabogalrada
@@ -14,7 +17,9 @@ public class InmobiliariaProyectoFinalLenguaje {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        VentanaLogIn login = new VentanaLogIn();
+        login.setVisible(true);
+        login.setLocationRelativeTo(null);
     }
     
 }

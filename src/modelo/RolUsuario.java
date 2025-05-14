@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public enum RolUsuario {
+public enum RolUsuario implements Serializable{
     ADMINISTRADOR, EMPLEADO, CLIENTE
 
 }

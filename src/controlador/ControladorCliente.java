@@ -5,18 +5,19 @@
 package controlador;
 
 import dao.DAOUsuario;
-import modelo.Empleado;
+import java.util.ArrayList;
+import modelo.Cliente;
 import modelo.Usuario;
 
 /**
  *
  * @author nataliasabogalrada
  */
-public class ControladorUsuario {
+public class ControladorCliente {
+    
+    private DAOUsuario daoU;
 
-    DAOUsuario daoU;
-
-    public ControladorUsuario() {
+    public ControladorCliente() {
         daoU = new DAOUsuario();
     }
 
@@ -24,20 +25,18 @@ public class ControladorUsuario {
         return daoU.buscarUsuario(cedula);
     }
 
-    public boolean guardarUsuario(Usuario user) {
-        return daoU.guardarUsuario(user);
+    public boolean guardarCliente(Cliente cliente) {
+        return daoU.guardarUsuario(cliente);
     }
 
-    public boolean eliminarUsuario(String cedula) {
+    public boolean eliminarCliente(String cedula) {
         return daoU.eliminarUsuario(cedula);
     }
 
-    public boolean editarEmpleado(Empleado empleado) {
-        return daoU.editarEmpleado(empleado);
+    public ArrayList<Usuario> getUsuarios() {
+        return daoU.getUsuarios();
     }
-
-    public Empleado buscarEmpleado(String cedula) {
-        return daoU.buscarEmpleado(cedula);
-    }
- 
+    
+    
+    
 }

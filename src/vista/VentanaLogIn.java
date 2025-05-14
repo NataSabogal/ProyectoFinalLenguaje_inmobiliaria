@@ -4,10 +4,11 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
+import controlador.ControladorLogIn;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.Usuario;
 
@@ -20,18 +21,21 @@ public class VentanaLogIn extends javax.swing.JFrame {
     /**
      * Creates new form VentanaLogIn
      */
-    ControladorUsuario userController;
-    ControladorInmueble inmController;
+    private ControladorLogIn loginController;
+   // ControladorInmueble inmController;
+   
 
-    public VentanaLogIn(ControladorUsuario userController, ControladorInmueble inmController) {
+    public VentanaLogIn() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtCedula.setText("Ingrese su cédula ");
         txtCedula.setForeground(Color.GRAY);
         txtContraseña.setText("********");
         txtContraseña.setForeground(Color.GRAY);
-        this.userController = userController == null ? new ControladorUsuario() : userController;
-        this.inmController = inmController == null ? new ControladorInmueble(): inmController;
+        loginController = new ControladorLogIn();
+//        this.userController = userController == null ? new ControladorUsuario() : userController;
+//        this.inmController = inmController == null ? new ControladorInmueble(): inmController;
+//        
 
     }
 
@@ -174,21 +178,23 @@ public class VentanaLogIn extends javax.swing.JFrame {
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         String cedula = txtCedula.getText();
         String password = String.valueOf(txtContraseña.getPassword());
-        Usuario aux = userController.logIn(cedula, password);
+        Usuario aux = loginController.logIn(cedula, password);
         if (aux != null) {
             if (aux.getRol() == RolUsuario.ADMINISTRADOR) {
-                VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController, inmController);
+                VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin();
                 admin.setVisible(true);
                 admin.setLocationRelativeTo(null);
                 this.dispose();
             } else if (aux.getRol() == RolUsuario.EMPLEADO) {
-                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado(userController, inmController);
+                Empleado empleado = (Empleado) aux;
+                VentanaPrincipalEmpleado vista = new VentanaPrincipalEmpleado(empleado);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
 
             } else if (aux.getRol() == RolUsuario.CLIENTE) {
-                VentanaPrincipalCliente vista = new VentanaPrincipalCliente(userController,inmController);
+                Cliente cliente = (Cliente) aux;
+                VentanaPrincipalCliente vista = new VentanaPrincipalCliente();
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();
@@ -199,7 +205,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnRegistroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroClienteActionPerformed
-        VentanaRegistroCliente cliente = new VentanaRegistroCliente(userController, inmController);
+        VentanaRegistroCliente cliente = new VentanaRegistroCliente();
         cliente.setVisible(true);
         cliente.setLocationRelativeTo(null);
         this.dispose();
@@ -264,7 +270,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaLogIn(null, null).setVisible(true);
+                new VentanaLogIn().setVisible(true);
             }
         });
     }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import modelo.Empleado;
 import modelo.RolUsuario;
 import modelo.Usuario;
+import serializadora.SerializadoraUsuario;
 
 /**
  *
@@ -15,10 +16,12 @@ import modelo.Usuario;
  */
 public class DAOUsuario {
 
-    ArrayList<Usuario> usuarios;
+    private ArrayList<Usuario> usuarios;
+    private SerializadoraUsuario serializadora;
 
     public DAOUsuario() {
-        usuarios = new ArrayList<>();
+        serializadora = new SerializadoraUsuario();
+        usuarios = serializadora.getUsuarios();
     }
 
     public Usuario buscarUsuario(String cedula) {
@@ -34,6 +37,7 @@ public class DAOUsuario {
         Usuario aux = buscarUsuario(user.getCedula());
         if (aux == null) {
             usuarios.add(user);
+            serializadora.escribirUsuario();
             return true;
         }
         return false;
@@ -43,6 +47,7 @@ public class DAOUsuario {
         Usuario aux = buscarUsuario(cedula);
         if (aux != null) {
             usuarios.remove(aux);
+            serializadora.escribirUsuario();
             return true;
         }
         return false;
@@ -58,7 +63,7 @@ public class DAOUsuario {
             aux.setTelefono(empleado.getTelefono());
             aux.setCantidadPropiedades(empleado.getCantidadPropiedades());
             aux.setTipoPropiedad(empleado.getTipoPropiedad());
-
+            serializadora.escribirUsuario();
             return true;
         }
         return false;

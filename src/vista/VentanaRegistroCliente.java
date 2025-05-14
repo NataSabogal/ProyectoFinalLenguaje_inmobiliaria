@@ -4,12 +4,10 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
+import controlador.ControladorCliente;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.RolUsuario;
-import modelo.Usuario;
 
 /**
  *
@@ -20,13 +18,11 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistroCliente
      */
-    ControladorUsuario userController;
-    ControladorInmueble inmController;
+    ControladorCliente clienteController;
 
-    public VentanaRegistroCliente(ControladorUsuario userController, ControladorInmueble inmController) {
+    public VentanaRegistroCliente() {
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController;
+        clienteController = new ControladorCliente();
     }
 
     /**
@@ -212,11 +208,11 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         String direccionR = txtDirecciondeResidencia.getText();
         String ciudad = txtCiudad.getText();
         String ocupacion = txtOcupacion.getText();
-        Usuario cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = userController.guardarUsuario(cliente);
+        Cliente cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+        boolean aux = clienteController.guardarCliente(cliente);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Registro Exitoso!");
-            VentanaLogIn login = new VentanaLogIn(userController, inmController);
+            VentanaLogIn login = new VentanaLogIn();
             login.setVisible(true);
             login.setLocationRelativeTo(null);
             this.dispose();
@@ -226,7 +222,7 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
-        VentanaLogIn log = new VentanaLogIn(userController, inmController);
+        VentanaLogIn log = new VentanaLogIn();
         log.setVisible(true);
         log.setLocationRelativeTo(null);
         this.dispose();
@@ -262,7 +258,7 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroCliente(null, null).setVisible(true);
+                new VentanaRegistroCliente().setVisible(true);
             }
         });
     }

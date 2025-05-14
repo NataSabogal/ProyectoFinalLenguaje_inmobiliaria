@@ -7,7 +7,9 @@ package controlador;
 import dao.DAOInmueble;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import modelo.Empleado;
 import modelo.Inmueble;
+import modelo.TipoPropiedad;
 
 /**
  *
@@ -16,16 +18,24 @@ import modelo.Inmueble;
 public class ControladorInmueble {
 
     DAOInmueble daoI;
+    Empleado empleado;
 
-    public ControladorInmueble() {
+    public ControladorInmueble(Empleado empleado) { //como parametro!!
         daoI = new DAOInmueble();
+        this.empleado = empleado;
+
     }
 
     public Inmueble buscarInmueble(String id) {
         return daoI.buscarInmueble(id);
     }
 
-    public boolean guardarInmueble(Inmueble inmueble) {
+    public boolean guardarInmueble(Inmueble inmueble, Empleado empleado) {
+        if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
+                || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
+
+            return false;
+        }
         return daoI.guardarInmueble(inmueble);
     }
 
@@ -33,7 +43,12 @@ public class ControladorInmueble {
         return daoI.eliminarPropiedad(id);
     }
 
-    public boolean editarInmueble(Inmueble inmueble) {
+    public boolean editarInmueble(Inmueble inmueble, Empleado empleado) {
+        if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
+                || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
+            return false;
+        }
+
         return daoI.editarInmueble(inmueble);
     }
 
@@ -44,7 +59,8 @@ public class ControladorInmueble {
     public DefaultTableModel llenarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{"Nombre Responsable", "TelefonoResponsable", "ID", "Dirección", "Ciudad", "Número de Habitaciones", "Número de Baños", "Número de Plantas", "Tipo de Propiedad", "Disponible", "Visita", "Descripción", "Precio"});
-        ArrayList<Inmueble> lista = daoI.getInmuebles();
+        ArrayList<Inmueble> lista = filtrar(daoI.getInmuebles());
+
         for (int i = 0; i < lista.size(); i++) {
             model.addRow(new Object[]{
                 lista.get(i).getNombreResponsable(),
@@ -64,6 +80,16 @@ public class ControladorInmueble {
 
         }
         return model;
+    }
+
+    private ArrayList<Inmueble> filtrar(ArrayList<Inmueble> inmuebles) {
+        ArrayList<Inmueble> salida = new ArrayList();
+        for (int i = 0; i < inmuebles.size(); i++) {
+            if (inmuebles.get(i).getEmpleado().getCedula().equals(empleado.getCedula())) {
+                salida.add(inmuebles.get(i));
+            }
+        }
+        return salida;
     }
 
 }
