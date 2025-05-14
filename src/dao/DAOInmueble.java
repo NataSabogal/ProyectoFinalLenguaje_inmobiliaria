@@ -6,6 +6,7 @@ package dao;
 
 import java.util.ArrayList;
 import modelo.Inmueble;
+import serializadora.SerializadoraInmueble;
 
 /**
  *
@@ -13,10 +14,12 @@ import modelo.Inmueble;
  */
 public class DAOInmueble {
 
-    ArrayList<Inmueble> inmuebles;
+    private ArrayList<Inmueble> inmuebles;
+    private SerializadoraInmueble serializadora;
 
     public DAOInmueble() {
-        inmuebles = new ArrayList<>();
+        serializadora = new SerializadoraInmueble();
+        inmuebles = serializadora.getInmueble();
     }
 
     public Inmueble buscarInmueble(String id) {
@@ -32,6 +35,7 @@ public class DAOInmueble {
         Inmueble aux = buscarInmueble(inmueble.getId());
         if (aux == null) {
             inmuebles.add(inmueble);
+            serializadora.escribirInmueble();
             return true;
         }
         return false;
@@ -41,6 +45,7 @@ public class DAOInmueble {
         Inmueble aux = buscarInmueble(id);
         if (aux != null) {
             inmuebles.remove(aux);
+            serializadora.escribirInmueble();
             return true;
         }
         return false;
@@ -60,6 +65,7 @@ public class DAOInmueble {
             aux.getPropiedad().setNunBanios(inmueble.getPropiedad().getNunBanios());
             aux.setTelResponsable(inmueble.getTelResponsable());
             aux.setVisita(inmueble.isVisita());
+            serializadora.escribirInmueble();
             return true;
         }
         return false;

@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public class Propiedad {
+public class Propiedad implements Serializable {
     
     private String direccion;
     private String ciudad;

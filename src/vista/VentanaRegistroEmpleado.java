@@ -4,8 +4,7 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
+import controlador.ControladorEmpleado;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
@@ -21,12 +20,11 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistroEmpleado
      */
-    ControladorUsuario userController;
-    ControladorInmueble inmController;
-    public VentanaRegistroEmpleado(ControladorUsuario userController, ControladorInmueble inmController) {
+        private ControladorEmpleado empleadoController;
+        
+    public VentanaRegistroEmpleado() {
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController;
+        empleadoController = new ControladorEmpleado();
         llenarTabla();
 
     }
@@ -275,7 +273,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasAdminPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasAdminPagosActionPerformed
-        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin(userController, inmController);
+        VentanaPrincipalAdmin admin = new VentanaPrincipalAdmin();
         admin.setVisible(true);
         admin.setLocationRelativeTo(null);
         this.dispose();
@@ -291,8 +289,8 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         RolUsuario rolCliente = RolUsuario.EMPLEADO;
         int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
         TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-        Usuario empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = userController.guardarUsuario(empleado);
+        Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+        boolean aux = empleadoController.guardarEmpleado(empleado);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Registro Exitoso!");
             llenarTabla();
@@ -304,7 +302,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String cedula = txtCedula.getText();
-        Empleado empleado = userController.buscarEmpleado(cedula);
+        Empleado empleado = empleadoController.buscarEmpleado(cedula);
         if (empleado != null) {
             txtCantidadPropiedades.setText(empleado.getCantidadPropiedades() + "");
             txtEdad.setText(empleado.getEdad() + "");
@@ -320,7 +318,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
 
     private void btnEiminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEiminarActionPerformed
         String cedula = txtCedula.getText();
-        boolean aux = userController.eliminarUsuario(cedula);
+        boolean aux = empleadoController.eliminarEmpleado(cedula);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Eliminado correctamente");
             limpiarCampos();
@@ -341,7 +339,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
         TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
         Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-        boolean aux = userController.editarEmpleado(emp);
+        boolean aux = empleadoController.editarEmpleado(emp);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Se editó correctamente");
             llenarTabla();
@@ -364,7 +362,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }
 
     public void llenarTabla() {
-        tablaEmpleado.setModel(userController.llenarTablaEmpleado());
+        tablaEmpleado.setModel(empleadoController.llenarTablaEmpleado());
     }
 
     /**
@@ -397,7 +395,7 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistroEmpleado(null, null).setVisible(true);
+                new VentanaRegistroEmpleado().setVisible(true);
             }
         });
     }

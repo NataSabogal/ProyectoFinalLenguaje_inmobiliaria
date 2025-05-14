@@ -4,10 +4,12 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public class Mensaje {
+public class Mensaje implements Serializable{
     
 }

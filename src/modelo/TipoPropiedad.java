@@ -4,10 +4,12 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public enum TipoPropiedad {
+public enum TipoPropiedad implements Serializable{
     VENTA, ARRENDAMIENTO, AMBAS
 }

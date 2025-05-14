@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public class Empleado extends Usuario{
+public class Empleado extends Usuario implements Serializable{
     
     private int cantidadPropiedades;
     private TipoPropiedad tipoPropiedad;

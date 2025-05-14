@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author nataliasabogalrada
  */
-public class Inmueble {
+public class Inmueble implements Serializable{
     
     private String id;
     private Propiedad propiedad;
@@ -20,7 +22,8 @@ public class Inmueble {
     private String descripcion;
     private String nombreResponsable;
     private String telResponsable;
-
+    //lista de agenda
+    
     public Inmueble(String id, Propiedad propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, Empleado empleado, String descripcion, String nombreResponsable, String telResponsable) {
         this.id = id;
         this.propiedad = propiedad;

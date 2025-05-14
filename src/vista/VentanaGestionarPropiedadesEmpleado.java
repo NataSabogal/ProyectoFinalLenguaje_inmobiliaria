@@ -5,7 +5,6 @@
 package vista;
 
 import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.Inmueble;
@@ -21,16 +20,14 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaGestionarPropiedadesEmpleado
      */
-    ControladorUsuario userController;
+    
     ControladorInmueble inmController;
     Empleado empleado;
-
-    public VentanaGestionarPropiedadesEmpleado(ControladorUsuario userController, ControladorInmueble inmController, Empleado empleado) {
+    
+    public VentanaGestionarPropiedadesEmpleado(Empleado empleado) {//aquí parametro
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController == null ? new ControladorInmueble() : inmController;
+        inmController = new ControladorInmueble(empleado);// aquí argumento
         this.empleado = empleado;
-        txtEmpleado.setText(empleado.getCedula());
         configurarComboBox(empleado);
         llenarTabla();
     }
@@ -64,8 +61,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        txtEmpleado = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaP = new javax.swing.JTable();
@@ -140,10 +135,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Empleado:");
-
-        txtEmpleado.setEditable(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,12 +170,10 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                                 .addGap(67, 67, 67)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                    .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                                    .addComponent(txtEmpleado))))
+                                    .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addGap(130, 130, 130)
@@ -206,11 +195,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAtras)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -378,14 +363,14 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(userController, inmController, empleado);
+        VentanaPrincipalEmpleado principalE = new VentanaPrincipalEmpleado(empleado);
         principalE.setVisible(true);
         principalE.setLocationRelativeTo(this);
         this.dispose();
@@ -407,9 +392,10 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             int numBanios = (Integer) spinnerNumBanios.getValue();
             int numPlantas = (Integer) spinnerNumPlantas.getValue();
             Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-            Empleado empleadoActual = userController.buscarEmpleado(txtEmpleado.getText());
-            Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleadoActual, descripcion, nombreReponsable, telefono);
-            boolean aux = inmController.guardarInmueble(inmueble, empleadoActual);
+            
+            //Empleado empleadoActual = userController.buscarEmpleado(txtEmpleado.getText());
+            Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleado, descripcion, nombreReponsable, telefono);
+            boolean aux = inmController.guardarInmueble(inmueble, empleado);
             if (aux) {
                 JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
                 limpiarCampos();
@@ -447,7 +433,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-        VentanaAgendarVisita visita = new VentanaAgendarVisita(userController, inmController, empleado);
+        VentanaAgendarVisita visita = new VentanaAgendarVisita(empleado);
         visita.setVisible(true);
         visita.setLocationRelativeTo(null);
         this.dispose();
@@ -467,10 +453,9 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
         int numBanios = (Integer) spinnerNumBanios.getValue();
         int numPlantas = (Integer) spinnerNumPlantas.getValue();
-        Empleado empleadoActual = userController.buscarEmpleado(txtEmpleado.getText());
         Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleadoActual, descripcion, nombreReponsable, telefono);
-        boolean aux = inmController.editarInmueble(inmueble, empleadoActual);
+        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleado, descripcion, nombreReponsable, telefono);
+        boolean aux = inmController.editarInmueble(inmueble, empleado);
         if (aux) {
             JOptionPane.showMessageDialog(null, "Se editó correctamente");
             llenarTabla();
@@ -559,7 +544,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaGestionarPropiedadesEmpleado(null, null, null).setVisible(true);
+                new VentanaGestionarPropiedadesEmpleado(null).setVisible(true);
             }
         });
     }
@@ -577,7 +562,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -597,7 +581,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEmpleado;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNombreRespnsable;
     private javax.swing.JTextField txtPrecio;

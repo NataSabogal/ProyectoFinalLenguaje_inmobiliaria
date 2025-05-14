@@ -4,9 +4,6 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
-
 /**
  *
  * @author nataliasabogalrada
@@ -16,13 +13,10 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
     /**
      * Creates new form VenatanaAdmin
      */
-    ControladorUsuario userController;
-    ControladorInmueble inmController;
-    
-    public VentanaPrincipalAdmin(ControladorUsuario userController, ControladorInmueble inmController) {
+   
+    public VentanaPrincipalAdmin() {
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController;
+        
     }
 
     /**
@@ -122,28 +116,28 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmpleadoActionPerformed
-        VentanaRegistroEmpleado empleado = new VentanaRegistroEmpleado(userController, inmController);
+        VentanaRegistroEmpleado empleado = new VentanaRegistroEmpleado();
         empleado.setVisible(true);
         empleado.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarEmpleadoActionPerformed
 
     private void menuItemLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLogInActionPerformed
-        VentanaLogIn login = new VentanaLogIn(userController, inmController);
+        VentanaLogIn login = new VentanaLogIn();
         login.setVisible(true);
         login.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_menuItemLogInActionPerformed
 
     private void btnHistorialPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPropiedadesActionPerformed
-        VentanaHistorialAdmin historial = new VentanaHistorialAdmin(userController, inmController);
+        VentanaHistorialAdmin historial = new VentanaHistorialAdmin();
         historial.setVisible(true);
         historial.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnHistorialPropiedadesActionPerformed
 
     private void btnPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesActionPerformed
-        VentanaRegistroPropiedadAdmin propiedad = new VentanaRegistroPropiedadAdmin(userController, inmController);
+        VentanaRegistroPropiedadAdmin propiedad = new VentanaRegistroPropiedadAdmin();
         propiedad.setVisible(true);
         propiedad.setLocationRelativeTo(null);
         this.dispose();
@@ -182,7 +176,7 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalAdmin(null, null).setVisible(true);
+                new VentanaPrincipalAdmin().setVisible(true);
             }
         });
     }

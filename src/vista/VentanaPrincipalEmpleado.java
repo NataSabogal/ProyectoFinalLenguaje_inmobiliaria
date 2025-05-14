@@ -4,8 +4,6 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
-import controlador.ControladorUsuario;
 import modelo.Empleado;
 
 /**
@@ -17,14 +15,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaEmpleado
      */
-    ControladorUsuario userController;
-    ControladorInmueble inmController;
     Empleado empleado;
 
-    public VentanaPrincipalEmpleado(ControladorUsuario userController, ControladorInmueble inmController, Empleado empleado) {
+    public VentanaPrincipalEmpleado(Empleado empleado) {
         initComponents();
-        this.userController = userController;
-        this.inmController = inmController;
         this.empleado = empleado;
     }
 
@@ -133,21 +127,21 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGestionarPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPropiedadesActionPerformed
-        VentanaGestionarPropiedadesEmpleado emp = new VentanaGestionarPropiedadesEmpleado(userController, inmController,empleado);
+        VentanaGestionarPropiedadesEmpleado emp = new VentanaGestionarPropiedadesEmpleado(empleado);
         emp.setVisible(true);
         emp.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnGestionarPropiedadesActionPerformed
 
     private void btnPropiedadesAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesAActionPerformed
-        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(userController, inmController, empleado);
+        VentanaPropiedadesActivasEmpleado propiedades = new VentanaPropiedadesActivasEmpleado(empleado);
         propiedades.setVisible(true);
         propiedades.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnPropiedadesAActionPerformed
 
     private void menuLogINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLogINActionPerformed
-        VentanaLogIn login = new VentanaLogIn(userController, inmController);
+        VentanaLogIn login = new VentanaLogIn();
         login.setVisible(true);
         login.setLocationRelativeTo(null);
         this.dispose();
@@ -195,7 +189,7 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalEmpleado(null, null, null).setVisible(true);
+                new VentanaPrincipalEmpleado(null).setVisible(true);
             }
         });
     }
