@@ -455,14 +455,15 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
         if (txtIDLlevar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el ID del inmueble");
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar un inmueble de la tabla");
         } else {
             String idA = txtIDLlevar.getText();
             Inmueble inm = inmController.buscarInmueble(idA);
             if (inm != null) {
-                VentanaAgendarVisita visita = new VentanaAgendarVisita(empleado);
-                visita.setVisible(true);
-                visita.setLocationRelativeTo(null);
+                
+                VentanaAgendarVisita agenda = new VentanaAgendarVisita(empleado);
+                agenda.setVisible(true);
+                agenda.setLocationRelativeTo(null);
                 this.dispose();
             }
         }
@@ -515,7 +516,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Asegurese de seleccionar un inmueble de la tabla");
             return;
         }
-        txtIDLlevar.setText(inmController.llenarTabla().getValueAt(fila, 1).toString());
+        txtIDLlevar.setText(inmController.llenarTabla().getValueAt(fila, 2).toString());
     }//GEN-LAST:event_tablaPMouseClicked
 
     /**
@@ -556,9 +557,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         }
     }
 
-    public void escogerFilayAgendar() {
-
-    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

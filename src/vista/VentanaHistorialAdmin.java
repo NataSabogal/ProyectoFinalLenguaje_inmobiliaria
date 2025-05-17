@@ -96,10 +96,10 @@ public class VentanaHistorialAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin();
-        principal.setVisible(true);
-        principal.setLocationRelativeTo(this);
-        this.dispose();
+//        VentanaPrincipalAdmin principal = new VentanaPrincipalAdmin();
+//        principal.setVisible(true);
+//        principal.setLocationRelativeTo(this);
+//        this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**

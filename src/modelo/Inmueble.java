@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +23,8 @@ public class Inmueble implements Serializable{
     private String descripcion;
     private String nombreResponsable;
     private String telResponsable;
-    //lista de agenda
+    private ArrayList<Agenda> agendas;
+    private ArrayList<Mensaje> mensajes;
     
     public Inmueble(String id, Propiedad propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, Empleado empleado, String descripcion, String nombreResponsable, String telResponsable) {
         this.id = id;
@@ -33,8 +35,8 @@ public class Inmueble implements Serializable{
         this.disponible = disponible;
         this.empleado = empleado;
         this.descripcion = descripcion;
-        this.nombreResponsable = nombreResponsable;
-        this.telResponsable = telResponsable;
+        this.nombreResponsable = empleado.getNombre();
+        this.telResponsable = empleado.getTelefono();
     }
 
     
@@ -118,5 +120,9 @@ public class Inmueble implements Serializable{
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
-    
+
+    @Override
+    public String toString() {
+        return  "ID inmueble: "+id + " Dirección: "+propiedad.getDireccion();
+    }  
 }

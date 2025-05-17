@@ -26,6 +26,12 @@ public class ControladorInmueble {
 
     }
 
+    public ControladorInmueble() {
+        daoI = new DAOInmueble();
+    }
+    
+    
+
     public Inmueble buscarInmueble(String id) {
         return daoI.buscarInmueble(id);
     }

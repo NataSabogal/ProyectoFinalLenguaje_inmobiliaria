@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Empleado extends Usuario implements Serializable{
     
     private int cantidadPropiedades;
     private TipoPropiedad tipoPropiedad;
+    private ArrayList<Mensaje> mensajes;
 
     public Empleado(int cantidadPropiedades, TipoPropiedad tipoPropiedad, String nombre, String cedula, int edad, String fechaNacimiento, String telefono, String password, RolUsuario rol) {
         super(nombre, cedula, edad, fechaNacimiento, telefono, password, rol);

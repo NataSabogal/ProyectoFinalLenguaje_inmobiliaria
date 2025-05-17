@@ -13,7 +13,6 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
     /**
      * Creates new form VenatanaAdmin
      */
-   
     public VentanaPrincipalAdmin() {
         initComponents();
         
@@ -137,6 +136,7 @@ public class VentanaPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialPropiedadesActionPerformed
 
     private void btnPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPropiedadesActionPerformed
+        
         VentanaRegistroPropiedadAdmin propiedad = new VentanaRegistroPropiedadAdmin();
         propiedad.setVisible(true);
         propiedad.setLocationRelativeTo(null);

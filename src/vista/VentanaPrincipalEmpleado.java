@@ -37,8 +37,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
         btnPropiedadesA = new javax.swing.JButton();
         btnHistorialEmpleado = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuPerfil = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuLogIN = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         btnPropiedadesActivas.setText("Propiedaes Activas");
         btnPropiedadesActivas.addActionListener(new java.awt.event.ActionListener() {
@@ -92,13 +94,21 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
                 .addComponent(btnGestionarPropiedades, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnPropiedadesA, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnHistorialEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
-        jMenu1.setText("X");
-        jMenu1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        jMenuPerfil.setText("X");
+        jMenuPerfil.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+
+        jMenuItem1.setText("👤  Perfil");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuPerfil.add(jMenuItem1);
 
         menuLogIN.setText("LogIn");
         menuLogIN.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +116,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
                 menuLogINActionPerformed(evt);
             }
         });
-        jMenu1.add(menuLogIN);
+        jMenuPerfil.add(menuLogIN);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuPerfil);
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -158,6 +169,13 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
 //        this.dispose();
     }//GEN-LAST:event_btnHistorialEmpleadoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        VentanaPerfilEmpleado emp = new VentanaPerfilEmpleado(empleado);
+        emp.setVisible(true);
+        emp.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -199,8 +217,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnHistorialEmpleado;
     private javax.swing.JButton btnPropiedadesA;
     private javax.swing.JButton btnPropiedadesActivas;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenuPerfil;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem menuLogIN;
     // End of variables declaration//GEN-END:variables

@@ -4,8 +4,6 @@
  */
 package vista;
 
-import modelo.Cliente;
-
 /**
  *
  * @author nataliasabogalrada
@@ -49,6 +47,11 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades Disponibles", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
         btnAgendarVisita.setText("Agendar Visita");
+        btnAgendarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendarVisitaActionPerformed(evt);
+            }
+        });
 
         tablePropiedades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,7 +130,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
 
         jMenu2.setText("Información Cliente");
 
-        jMenuItemInfoCliente.setText("Información Cliente");
+        jMenuItemInfoCliente.setText("👤  Perfil");
         jMenuItemInfoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemInfoClienteActionPerformed(evt);
@@ -161,8 +164,16 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemLogInActionPerformed
 
     private void jMenuItemInfoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInfoClienteActionPerformed
-        // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_jMenuItemInfoClienteActionPerformed
+
+    private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
+//        VentanaAgendarVisita agendar = new VentanaAgendarVisita(empleado);
+//        agendar.setVisible(true);
+//        agendar.setLocationRelativeTo(null);
+//        this.dispose();
+    }//GEN-LAST:event_btnAgendarVisitaActionPerformed
 
     /**
      * @param args the command line arguments

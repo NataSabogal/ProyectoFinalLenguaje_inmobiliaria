@@ -15,23 +15,21 @@ import java.time.LocalTime;
 public class Agenda implements Serializable{
 
     private String id;
-    private Propiedad propiedad;
     private LocalDate fecha;
     private Cliente cliente;
     private LocalTime horaInicio;
     private LocalTime horaFinal;
-    private boolean opcionVisita;
-    private String estado;
+    private boolean cancelada;
+    private int duracionHoras;
 
-    public Agenda(String id, Propiedad propiedad, LocalDate fecha, Cliente cliente, LocalTime horaInicio, LocalTime horaFinal, boolean opcionVisita, String estado) {
+    public Agenda(String id, LocalDate fecha, Cliente cliente, LocalTime horaInicio, LocalTime horaFinal, boolean cancelada, int duracionHoras) {
         this.id = id;
-        this.propiedad = propiedad;
         this.fecha = fecha;
         this.cliente = cliente;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
-        this.opcionVisita = opcionVisita;
-        this.estado = estado;
+        this.cancelada = cancelada;
+        this.duracionHoras = duracionHoras;
     }
 
     public String getId() {
@@ -40,14 +38,6 @@ public class Agenda implements Serializable{
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Propiedad getPropiedad() {
-        return propiedad;
-    }
-
-    public void setPropiedad(Propiedad propiedad) {
-        this.propiedad = propiedad;
     }
 
     public LocalDate getFecha() {
@@ -82,19 +72,20 @@ public class Agenda implements Serializable{
         this.horaFinal = horaFinal;
     }
 
-    public boolean isOpcionVisita() {
-        return opcionVisita;
+    public boolean isCancelada() {
+        return cancelada;
     }
 
-    public void setOpcionVisita(boolean opcionVisita) {
-        this.opcionVisita = opcionVisita;
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
     }
 
-    public String getEstado() {
-        return estado;
+    public int getDuracionHoras() {
+        return duracionHoras;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDuracionHoras(int duracionHoras) {
+        this.duracionHoras = duracionHoras;
     }
+
 }
