@@ -17,11 +17,9 @@ import serializadora.SerializadoraUsuario;
 public class DAOUsuario {
 
     private ArrayList<Usuario> usuarios;
-    private SerializadoraUsuario serializadora;
 
     public DAOUsuario() {
-        serializadora = new SerializadoraUsuario();
-        usuarios = serializadora.getUsuarios();
+       this.usuarios = SerializadoraUsuario.getInstancia().getUsuarios();
     }
 
     public Usuario buscarUsuario(String cedula) {
@@ -37,7 +35,7 @@ public class DAOUsuario {
         Usuario aux = buscarUsuario(user.getCedula());
         if (aux == null) {
             usuarios.add(user);
-            serializadora.escribirUsuario();
+            SerializadoraUsuario.getInstancia().escribirUsuario();
             return true;
         }
         return false;
@@ -47,7 +45,7 @@ public class DAOUsuario {
         Usuario aux = buscarUsuario(cedula);
         if (aux != null) {
             usuarios.remove(aux);
-            serializadora.escribirUsuario();
+            SerializadoraUsuario.getInstancia().escribirUsuario();
             return true;
         }
         return false;
@@ -63,7 +61,7 @@ public class DAOUsuario {
             aux.setTelefono(empleado.getTelefono());
             aux.setCantidadPropiedades(empleado.getCantidadPropiedades());
             aux.setTipoPropiedad(empleado.getTipoPropiedad());
-            serializadora.escribirUsuario();
+            SerializadoraUsuario.getInstancia().escribirUsuario();
             return true;
         }
         return false;

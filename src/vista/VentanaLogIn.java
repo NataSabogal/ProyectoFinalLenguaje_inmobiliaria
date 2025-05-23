@@ -194,7 +194,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
 
             } else if (aux.getRol() == RolUsuario.CLIENTE) {
                 Cliente cliente = (Cliente) aux;
-                VentanaPrincipalCliente vista = new VentanaPrincipalCliente();
+                VentanaPrincipalCliente vista = new VentanaPrincipalCliente(cliente);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();

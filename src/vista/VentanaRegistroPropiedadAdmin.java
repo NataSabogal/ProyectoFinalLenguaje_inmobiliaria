@@ -4,9 +4,11 @@
  */
 package vista;
 
-import controlador.ControladorInmueble;
+import controlador.ControladorInmuebleAdmin;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelo.Empleado;
+import modelo.Estado;
 import modelo.Inmueble;
 import modelo.Propiedad;
 import modelo.TipoPropiedad;
@@ -20,12 +22,13 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     /**
      * Creates new form VentanaRegistroPropiedadAdmin
      */
-    ControladorInmueble inmController;
+    ControladorInmuebleAdmin controllerAdmin;
 
     public VentanaRegistroPropiedadAdmin() {
         initComponents();
-        inmController = new ControladorInmueble();
+        controllerAdmin = new ControladorInmuebleAdmin();
         cargarComboBoxPropiedades();
+        cbTipoPropiedad.setEnabled(false);
     }
 
     /**
@@ -44,20 +47,17 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         txtEmpleado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         cbTipoPropiedad = new javax.swing.JComboBox<>();
-        txtNombreRespnsable = new javax.swing.JTextField();
-        chBxDisponible = new javax.swing.JCheckBox();
         txtID = new javax.swing.JTextField();
         chBxVisita = new javax.swing.JCheckBox();
         txtDescripcion = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         btnBuscarGestion = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
@@ -69,13 +69,12 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         spinnerNumHabitacion = new javax.swing.JSpinner();
         spinnerNumBanios = new javax.swing.JSpinner();
         spinnerNumPlantas = new javax.swing.JSpinner();
-        bynEditar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro de Propiedad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro de Inmueble", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
         btnAtras1.setText("⤺");
         btnAtras1.addActionListener(new java.awt.event.ActionListener() {
@@ -98,15 +97,11 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
 
         jLabel4.setText("Precio:");
 
-        jLabel7.setText("Nombre del Responsable:");
-
         jLabel9.setText("Tipo Propiedad:");
-
-        jLabel6.setText("Telefono del Responsable:");
 
         cbTipoPropiedad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VENTA", "ARRENDAMIENTO", "AMBAS" }));
 
-        chBxDisponible.setText("¿Disponible?");
+        txtID.setEditable(false);
 
         chBxVisita.setText("¿Posibilidad de Visita?");
 
@@ -120,6 +115,10 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                 btnBuscarGestionActionPerformed(evt);
             }
         });
+
+        jLabel6.setText("Estado:");
+
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VENDIDO", "ARRENDADO", "DISPONIBLE" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,26 +140,20 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                                         .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel6))
-                                        .addGap(67, 67, 67)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtTelefono)
-                                            .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(130, 130, 130)
-                                        .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
                                             .addComponent(jLabel3))
                                         .addGap(150, 150, 150)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chBxDisponible)
                                             .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(chBxVisita)
-                                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addGap(130, 130, 130)
+                                            .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 88, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,17 +183,9 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                     .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombreRespnsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 30, Short.MAX_VALUE)
+                .addGap(18, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -208,8 +193,10 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cbTipoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(chBxDisponible)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(chBxVisita)
                 .addGap(30, 30, 30)
@@ -232,17 +219,10 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
 
         jLabel12.setText("Número de Plantas:");
 
-        bynEditar.setText("Editar");
-        bynEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bynEditarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -273,10 +253,8 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                             .addComponent(txtCiudad))))
                 .addGap(0, 33, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(bynEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120))
         );
         jPanel2Layout.setVerticalGroup(
@@ -303,9 +281,7 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(spinnerNumPlantas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(123, 123, 123)
-                .addComponent(bynEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -314,7 +290,7 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -346,59 +322,44 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         txtDescripcion.setText(inm.getDescripcion());
         txtDireccion.setText(inm.getPropiedad().getDireccion());
         txtID.setText(inm.getId());
-        txtNombreRespnsable.setText(inm.getNombreResponsable());
         txtPrecio.setText(inm.getPrecio() + "");
-        txtTelefono.setText(inm.getTelResponsable());
         cbTipoPropiedad.setSelectedItem(inm.getTipo().toString());
-        chBxDisponible.setSelected(inm.isDisponible());
+        cbEstado.setSelectedItem(inm.getEstado().toString());
         chBxVisita.setSelected(inm.isVisita());
         spinnerNumBanios.setValue(inm.getPropiedad().getNunBanios());
         spinnerNumHabitacion.setValue(inm.getPropiedad().getNumHabitaciones());
         spinnerNumPlantas.setValue(inm.getPropiedad().getNumPlantas());
-
     }//GEN-LAST:event_btnBuscarGestionActionPerformed
 
-    private void bynEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bynEditarActionPerformed
-//        String nombreReponsable = txtNombreRespnsable.getText();
-//        String telefono = txtTelefono.getText();
-//        String id = txtID.getText();
-//        double precio = Double.parseDouble(txtPrecio.getText());
-//        TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-//        boolean disponible = chBxDisponible.isSelected();
-//        boolean visita = chBxVisita.isSelected();
-//        String direccion = txtDireccion.getText();
-//        String ciudad = txtCiudad.getText();
-//        String descripcion = txtDescripcion.getText();
-//        int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
-//        int numBanios = (Integer) spinnerNumBanios.getValue();
-//        int numPlantas = (Integer) spinnerNumPlantas.getValue();
-//        Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-//        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, disponible, empleado, descripcion, nombreReponsable, telefono);
-//        boolean aux = inmController.editarInmueble(inmueble, empleado);
-//        if (aux) {
-//            JOptionPane.showMessageDialog(null, "Se editó correctamente");
-//            limpiarCampos();
-//        } else {
-//            JOptionPane.showMessageDialog(null, "No se pudo editar");
-//        }
-
-    }//GEN-LAST:event_bynEditarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         String id = txtID.getText();
-        boolean aux = inmController.eliminarPropiedad(id);
+        double precio = Double.parseDouble(txtPrecio.getText());
+        Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
+        boolean visita = chBxVisita.isSelected();
+        String direccion = txtDireccion.getText();
+        String ciudad = txtCiudad.getText();
+        String descripcion = txtDescripcion.getText();
+        int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+        int numBanios = (Integer) spinnerNumBanios.getValue();
+        int numPlantas = (Integer) spinnerNumPlantas.getValue();
+        Inmueble inmuebleOriginal = (Inmueble) cbPropiedades.getSelectedItem();
+        Empleado emp = inmuebleOriginal.getEmpleado();
+        TipoPropiedad tipPropiedad = (TipoPropiedad) inmuebleOriginal.getTipo();
+        Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, emp, descripcion);
+        boolean aux = controllerAdmin.editarInmuebleConEmpleado(inmueble);
         if (aux) {
-            JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+            JOptionPane.showMessageDialog(null, "Se editó correctamente");
             limpiarCampos();
-
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar correctamente");
+            JOptionPane.showMessageDialog(null, "No se pudo editar");
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     public void cargarComboBoxPropiedades() {
         cbPropiedades.removeAllItems();
-        ArrayList<Inmueble> listaInmueble = inmController.getInmuebles();
+        ArrayList<Inmueble> listaInmueble = controllerAdmin.getInmuebles();
         for (int i = 0; i < listaInmueble.size(); i++) {
             cbPropiedades.addItem(listaInmueble.get(i));
 
@@ -410,10 +371,8 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
         txtDescripcion.setText("");
         txtDireccion.setText("");
         txtID.setText("");
-        txtNombreRespnsable.setText("");
         txtPrecio.setText("");
-        txtTelefono.setText("");
-        chBxDisponible.setSelected(false);
+        cbEstado.setSelectedIndex(0);
         chBxVisita.setSelected(false);
         cbTipoPropiedad.setSelectedIndex(0);
         spinnerNumBanios.setValue(0);
@@ -460,11 +419,10 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras1;
     private javax.swing.JButton btnBuscarGestion;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton bynEditar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<Inmueble> cbPropiedades;
     private javax.swing.JComboBox<String> cbTipoPropiedad;
-    private javax.swing.JCheckBox chBxDisponible;
     private javax.swing.JCheckBox chBxVisita;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -476,7 +434,6 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -489,8 +446,6 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmpleado;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtNombreRespnsable;
     private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

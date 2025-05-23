@@ -191,7 +191,7 @@ public class VentanaPerfilCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalCliente clie = new VentanaPrincipalCliente();
+        VentanaPrincipalCliente clie = new VentanaPrincipalCliente(cliente);
         clie.setVisible(true);
         clie.setLocationRelativeTo(null);
         this.dispose();

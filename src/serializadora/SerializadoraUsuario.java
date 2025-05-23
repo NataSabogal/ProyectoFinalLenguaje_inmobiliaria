@@ -18,16 +18,21 @@ import modelo.Usuario;
  */
 public class SerializadoraUsuario {
     
+    private static final  SerializadoraUsuario instance = new SerializadoraUsuario();
+
     private ArrayList<Usuario> usuarios;
 
-    public SerializadoraUsuario() {
+    private SerializadoraUsuario() {
         this.usuarios = leerUsuarios();
+    }
+    public static SerializadoraUsuario getInstancia(){
+        return instance;
     }
 
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
-    
+
     public void escribirUsuario() {
         try {
             FileOutputStream archivo = new FileOutputStream("src/serializadora/usuarios.dat");
@@ -36,7 +41,7 @@ public class SerializadoraUsuario {
             System.out.println("escribe");
             escritor.close();
         } catch (IOException ex) {
-ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
@@ -54,5 +59,5 @@ ex.printStackTrace();
             return new ArrayList<>();
         }
     }
-    
+
 }

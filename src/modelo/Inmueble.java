@@ -18,28 +18,24 @@ public class Inmueble implements Serializable{
     private double precio;
     private TipoPropiedad tipo;
     private boolean visita;
-    private boolean disponible;
+    private Estado estado;
     private Empleado empleado;
     private String descripcion;
-    private String nombreResponsable;
-    private String telResponsable;
     private ArrayList<Agenda> agendas;
     private ArrayList<Mensaje> mensajes;
-    
-    public Inmueble(String id, Propiedad propiedad, double precio, TipoPropiedad tipo, boolean visita, boolean disponible, Empleado empleado, String descripcion, String nombreResponsable, String telResponsable) {
+
+    public Inmueble(String id, Propiedad propiedad, double precio, TipoPropiedad tipo, boolean visita, Estado estado, Empleado empleado, String descripcion) {
         this.id = id;
         this.propiedad = propiedad;
         this.precio = precio;
         this.tipo = tipo;
         this.visita = visita;
-        this.disponible = disponible;
+        this.estado = estado;
         this.empleado = empleado;
         this.descripcion = descripcion;
-        this.nombreResponsable = empleado.getNombre();
-        this.telResponsable = empleado.getTelefono();
+//        this.agendas = agendas;
+//        this.mensajes = mensajes;
     }
-
-    
 
     public String getId() {
         return id;
@@ -81,6 +77,14 @@ public class Inmueble implements Serializable{
         this.visita = visita;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     public Empleado getEmpleado() {
         return empleado;
     }
@@ -97,28 +101,24 @@ public class Inmueble implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public String getNombreResponsable() {
-        return nombreResponsable;
+    public ArrayList<Agenda> getAgendas() {
+        return agendas;
     }
 
-    public void setNombreResponsable(String nombreResponsable) {
-        this.nombreResponsable = nombreResponsable;
+    public void setAgendas(ArrayList<Agenda> agendas) {
+        this.agendas = agendas;
     }
 
-    public String getTelResponsable() {
-        return telResponsable;
+    public ArrayList<Mensaje> getMensajes() {
+        return mensajes;
     }
 
-    public void setTelResponsable(String telResponsable) {
-        this.telResponsable = telResponsable;
+    public void setMensajes(ArrayList<Mensaje> mensajes) {
+        this.mensajes = mensajes;
     }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    
+    public boolean isActivo(){
+        return this.estado == Estado.DISPONIBLE;
     }
 
     @Override

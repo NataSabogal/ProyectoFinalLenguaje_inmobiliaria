@@ -5,6 +5,8 @@
 package dao;
 
 import java.util.ArrayList;
+import modelo.Agenda;
+import modelo.Empleado;
 import modelo.Inmueble;
 import serializadora.SerializadoraInmueble;
 
@@ -15,11 +17,9 @@ import serializadora.SerializadoraInmueble;
 public class DAOInmueble {
 
     private ArrayList<Inmueble> inmuebles;
-    private SerializadoraInmueble serializadora;
 
     public DAOInmueble() {
-        serializadora = new SerializadoraInmueble();
-        inmuebles = serializadora.getInmueble();
+        this.inmuebles = SerializadoraInmueble.getInstancia().getInmueble();
     }
 
     public Inmueble buscarInmueble(String id) {
@@ -35,7 +35,7 @@ public class DAOInmueble {
         Inmueble aux = buscarInmueble(inmueble.getId());
         if (aux == null) {
             inmuebles.add(inmueble);
-            serializadora.escribirInmueble();
+            SerializadoraInmueble.getInstancia().escribirInmueble();
             return true;
         }
         return false;
@@ -45,7 +45,7 @@ public class DAOInmueble {
         Inmueble aux = buscarInmueble(id);
         if (aux != null) {
             inmuebles.remove(aux);
-            serializadora.escribirInmueble();
+            SerializadoraInmueble.getInstancia().escribirInmueble();
             return true;
         }
         return false;
@@ -55,17 +55,15 @@ public class DAOInmueble {
         Inmueble aux = buscarInmueble(inmueble.getId());
         if (aux != null) {
             aux.setDescripcion(inmueble.getDescripcion());
-            aux.setDisponible(inmueble.isDisponible());
-            aux.setNombreResponsable(inmueble.getNombreResponsable());
+            aux.setEstado(inmueble.getEstado());
             aux.setPrecio(inmueble.getPrecio());
             aux.getPropiedad().setCiudad(inmueble.getPropiedad().getCiudad());
             aux.getPropiedad().setDireccion(inmueble.getPropiedad().getDireccion());
             aux.getPropiedad().setNumHabitaciones(inmueble.getPropiedad().getNumHabitaciones());
             aux.getPropiedad().setNumPlantas(inmueble.getPropiedad().getNumPlantas());
             aux.getPropiedad().setNunBanios(inmueble.getPropiedad().getNunBanios());
-            aux.setTelResponsable(inmueble.getTelResponsable());
             aux.setVisita(inmueble.isVisita());
-            serializadora.escribirInmueble();
+            SerializadoraInmueble.getInstancia().escribirInmueble();
             return true;
         }
         return false;
@@ -73,6 +71,59 @@ public class DAOInmueble {
 
     public ArrayList<Inmueble> getInmuebles() {
         return inmuebles;
+    }
+
+    public int InmueblesActivosPorEmpleado(Empleado empleado) {
+        int cont = 0;
+        for (int i = 0; i < inmuebles.size(); i++) {
+            if (inmuebles.get(i).getEmpleado().equals(empleado) && inmuebles.get(i).isActivo()) {
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    public Agenda buscarAgenda(String id, Inmueble inm) {
+        for (int i = 0; i < inm.getAgendas().size(); i++) {
+            if (inm.getAgendas().get(i) != null && inm.getAgendas().get(i).getId().equals(id)) {
+                return inm.getAgendas().get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean guardarAgenda(Agenda agenda, Inmueble inm) {
+        Agenda aux = buscarAgenda(agenda.getId(), inm);
+        if (aux == null) {
+            inm.getAgendas().add(agenda);
+            SerializadoraInmueble.getInstancia().escribirInmueble();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarAgenda(String id, Inmueble inm) {
+        Agenda aux = buscarAgenda(id, inm);
+        if (aux != null) {
+            inm.getAgendas().remove(aux);
+            SerializadoraInmueble.getInstancia().escribirInmueble();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean editarAgenda(Agenda agenda, Inmueble inm) {
+        Agenda aux = buscarAgenda(agenda.getId(), inm);
+        if (aux != null) {
+            aux.setHoraInicio(agenda.getHoraInicio());
+            aux.setCancelada(agenda.isCancelada());
+            aux.setDuracionHoras(agenda.getDuracionHoras());
+            aux.setFecha(agenda.getFecha());
+            aux.setHoraFinal(agenda.getHoraFinal());
+            SerializadoraInmueble.getInstancia().escribirInmueble();
+            return true;
+        }
+        return false;
     }
 
 }

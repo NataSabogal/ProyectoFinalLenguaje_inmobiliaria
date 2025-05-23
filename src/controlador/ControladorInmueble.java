@@ -29,8 +29,6 @@ public class ControladorInmueble {
     public ControladorInmueble() {
         daoI = new DAOInmueble();
     }
-    
-    
 
     public Inmueble buscarInmueble(String id) {
         return daoI.buscarInmueble(id);
@@ -42,9 +40,12 @@ public class ControladorInmueble {
 
             return false;
         }
-        if (daoI.getInmuebles().size() >= empleado.getCantidadPropiedades()) {
+
+        int activos = daoI.InmueblesActivosPorEmpleado(empleado);
+        if (activos >= empleado.getCantidadPropiedades()) {
             return false;
         }
+
         return daoI.guardarInmueble(inmueble);
     }
 
@@ -65,15 +66,13 @@ public class ControladorInmueble {
         return daoI.getInmuebles();
     }
 
-    public DefaultTableModel llenarTabla() {
+    public DefaultTableModel llenarTablaInmueblePorEmpleado() {
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new String[]{"Nombre Responsable", "TelefonoResponsable", "ID", "Dirección", "Ciudad", "Número de Habitaciones", "Número de Baños", "Número de Plantas", "Tipo de Propiedad", "Disponible", "Visita", "Descripción", "Precio"});
-        ArrayList<Inmueble> lista = filtrar(daoI.getInmuebles());
+        model.setColumnIdentifiers(new String[]{"ID", "Dirección", "Ciudad", "Número de Habitaciones", "Número de Baños", "Número de Plantas", "Tipo de Propiedad", "Estado", "Visita", "Descripción", "Precio"});
+        ArrayList<Inmueble> lista = filtrarInmueblePorEmpleado(daoI.getInmuebles());
 
         for (int i = 0; i < lista.size(); i++) {
             model.addRow(new Object[]{
-                lista.get(i).getNombreResponsable(),
-                lista.get(i).getTelResponsable(),
                 lista.get(i).getId(),
                 lista.get(i).getPropiedad().getDireccion(),
                 lista.get(i).getPropiedad().getCiudad(),
@@ -81,7 +80,7 @@ public class ControladorInmueble {
                 lista.get(i).getPropiedad().getNunBanios(),
                 lista.get(i).getPropiedad().getNumPlantas(),
                 lista.get(i).getTipo(),
-                lista.get(i).isDisponible(),
+                lista.get(i).getEstado(),
                 lista.get(i).isVisita(),
                 lista.get(i).getDescripcion(),
                 lista.get(i).getPrecio()
@@ -91,7 +90,7 @@ public class ControladorInmueble {
         return model;
     }
 
-    private ArrayList<Inmueble> filtrar(ArrayList<Inmueble> inmuebles) {
+    private ArrayList<Inmueble> filtrarInmueblePorEmpleado(ArrayList<Inmueble> inmuebles) {
         ArrayList<Inmueble> salida = new ArrayList();
         for (int i = 0; i < inmuebles.size(); i++) {
             if (inmuebles.get(i).getEmpleado().getCedula().equals(empleado.getCedula())) {
@@ -101,4 +100,6 @@ public class ControladorInmueble {
         return salida;
     }
 
+    
+   
 }

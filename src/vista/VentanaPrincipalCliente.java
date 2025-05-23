@@ -4,6 +4,11 @@
  */
 package vista;
 
+import controlador.ControladorVentanaPrincipalCliente;
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Inmueble;
+
 /**
  *
  * @author nataliasabogalrada
@@ -13,8 +18,13 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     /**
      * Creates new form VentanaCliente
      */
-    public VentanaPrincipalCliente() {
+    Cliente cliente;
+    ControladorVentanaPrincipalCliente controladorVentana;
+    public VentanaPrincipalCliente(Cliente cliente) {
         initComponents();
+        this.cliente = cliente;
+        controladorVentana = new ControladorVentanaPrincipalCliente();
+        llenarTablaInmueble();
     }
 
     /**
@@ -31,14 +41,13 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         btnAgendarVisita = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePropiedades = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtComentario = new javax.swing.JTextArea();
-        btnAgregarComentario = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtInmuebleSeleccionado = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuItemLogIn = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuInfoC = new javax.swing.JMenu();
         jMenuItemInfoCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,55 +73,55 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePropiedades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePropiedadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePropiedades);
 
-        txtComentario.setColumns(20);
-        txtComentario.setRows(5);
-        jScrollPane2.setViewportView(txtComentario);
-
-        btnAgregarComentario.setText("Agregar Comentario");
-
         jButton1.setText("Información Propiedad");
+
+        jLabel1.setText("Inmueble Seleccionado:");
+
+        txtInmuebleSeleccionado.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAgregarComentario)
-                        .addGap(0, 233, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAgendarVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addComponent(txtInmuebleSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgendarVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(btnAgregarComentario)
-                        .addContainerGap())
+                        .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtInmuebleSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)))
+                .addComponent(btnAgendarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         jMenu1.setText("X");
@@ -128,7 +137,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Información Cliente");
+        jMenuInfoC.setText("Información Cliente");
 
         jMenuItemInfoCliente.setText("👤  Perfil");
         jMenuItemInfoCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -136,9 +145,9 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
                 jMenuItemInfoClienteActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemInfoCliente);
+        jMenuInfoC.add(jMenuItemInfoCliente);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuInfoC);
 
         setJMenuBar(jMenuBar1);
 
@@ -164,17 +173,43 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemLogInActionPerformed
 
     private void jMenuItemInfoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInfoClienteActionPerformed
-        
+        VentanaPerfilCliente custo = new VentanaPerfilCliente(cliente);
+        custo.setVisible(true);
+        custo.setLocationRelativeTo(null);
+        this.dispose();
 
     }//GEN-LAST:event_jMenuItemInfoClienteActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-//        VentanaAgendarVisita agendar = new VentanaAgendarVisita(empleado);
-//        agendar.setVisible(true);
-//        agendar.setLocationRelativeTo(null);
-//        this.dispose();
+         if (txtInmuebleSeleccionado.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el inmueble en la tabla");
+        } else {
+            String id = txtInmuebleSeleccionado.getText();
+             Inmueble inm = controladorVentana.buscarInmueble(id);
+            if (inm != null) {
+                this.dispose();
+                VentanaAgendarVisita agendar = new VentanaAgendarVisita(inm);
+                agendar.setVisible(true);
+                agendar.setLocationRelativeTo(null);
+            }
+        }
     }//GEN-LAST:event_btnAgendarVisitaActionPerformed
 
+    private void tablePropiedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePropiedadesMouseClicked
+        int fila = tablePropiedades.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(this, "Selecciona un suplemento primero");
+                return;
+            }
+            txtInmuebleSeleccionado.setText(controladorVentana.llenar().getValueAt(fila, 0).toString());
+
+    }//GEN-LAST:event_tablePropiedadesMouseClicked
+
+    public void llenarTablaInmueble (){
+        tablePropiedades.setModel(controladorVentana.llenar());
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -206,25 +241,24 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalCliente().setVisible(true);
+                new VentanaPrincipalCliente(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendarVisita;
-    private javax.swing.JButton btnAgregarComentario;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuInfoC;
     private javax.swing.JMenuItem jMenuItemInfoCliente;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuItem menuItemLogIn;
     private javax.swing.JTable tablePropiedades;
-    private javax.swing.JTextArea txtComentario;
+    private javax.swing.JTextField txtInmuebleSeleccionado;
     // End of variables declaration//GEN-END:variables
 }
