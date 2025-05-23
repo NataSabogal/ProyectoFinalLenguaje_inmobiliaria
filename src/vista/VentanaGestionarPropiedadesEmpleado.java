@@ -5,6 +5,9 @@
 package vista;
 
 import controlador.ControladorInmueble;
+import exceptions.CantidadDePropiedadesNoCoincidenException;
+import exceptions.GestionarPropiedadDelMismoTipoException;
+import exceptions.IdInmuebleEnUsoException;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.Estado;
@@ -321,26 +324,27 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (!txtCiudad.getText().isEmpty() && !txtDescripcion.getText().isEmpty() && !txtDireccion.getText().isEmpty() && !txtID.getText().isEmpty() && !txtPrecio.getText().isEmpty()) {
-            String id = txtID.getText();
-            double precio = Double.parseDouble(txtPrecio.getText());
-            TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-            Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
-            boolean visita = chBxVisita.isSelected();
-            String direccion = txtDireccion.getText();
-            String ciudad = txtCiudad.getText();
-            String descripcion = txtDescripcion.getText();
-            int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
-            int numBanios = (Integer) spinnerNumBanios.getValue();
-            int numPlantas = (Integer) spinnerNumPlantas.getValue();
-            Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-            Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, empleado, descripcion);
-            boolean aux = inmController.guardarInmueble(inmueble, empleado);
-            if (aux) {
+            try {
+                String id = txtID.getText();
+                double precio = Double.parseDouble(txtPrecio.getText());
+                TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+                Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
+                boolean visita = chBxVisita.isSelected();
+                String direccion = txtDireccion.getText();
+                String ciudad = txtCiudad.getText();
+                String descripcion = txtDescripcion.getText();
+                int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+                int numBanios = (Integer) spinnerNumBanios.getValue();
+                int numPlantas = (Integer) spinnerNumPlantas.getValue();
+                Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+                Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, empleado, descripcion);
+                inmController.guardarInmueble(inmueble, empleado);
                 JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
                 limpiarCampos();
                 llenarTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo guardar");
+
+            } catch (GestionarPropiedadDelMismoTipoException | CantidadDePropiedadesNoCoincidenException |IdInmuebleEnUsoException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
 
         } else {
@@ -408,7 +412,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPMouseClicked
-     
+
     }//GEN-LAST:event_tablaPMouseClicked
 
     /**
@@ -446,7 +450,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             cbTipoPropiedad.addItem("ARRENDAMIENTO");
         }
     }
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

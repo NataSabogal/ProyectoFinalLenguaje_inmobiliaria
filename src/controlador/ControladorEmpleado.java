@@ -5,6 +5,8 @@
 package controlador;
 
 import dao.DAOUsuario;
+import exceptions.CedulaEnUsoException;
+import exceptions.PasswordRepetidaException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empleado;
@@ -22,8 +24,16 @@ public class ControladorEmpleado {
         daoU = new DAOUsuario();
     }
 
-    public boolean guardarEmpleado (Empleado empleado) {
-        return daoU.guardarUsuario(empleado);
+    public void guardarEmpleado (Empleado empleado) throws CedulaEnUsoException, PasswordRepetidaException {
+        Usuario user = buscarUsuario(empleado.getCedula());
+        if (user != null) {
+            throw new CedulaEnUsoException();
+        }
+        Usuario aux = buscarEmpleado(empleado.getPassword());
+        if (aux != null) {
+            throw new PasswordRepetidaException();
+        }
+        daoU.guardarUsuario(empleado);
     }
 
     public boolean eliminarEmpleado(String cedula) {
@@ -37,6 +47,12 @@ public class ControladorEmpleado {
     public Empleado buscarEmpleado(String cedula) {
         return daoU.buscarEmpleado(cedula);
     }
+
+    public Usuario buscarUsuario(String cedula) {
+        return daoU.buscarUsuario(cedula);
+    }
+    
+    
     
     public DefaultTableModel llenarTablaEmpleado() {
         DefaultTableModel model = new DefaultTableModel();

@@ -11,8 +11,8 @@ import java.util.ArrayList;
  *
  * @author nataliasabogalrada
  */
-public class Inmueble implements Serializable{
-    
+public class Inmueble implements Serializable {
+
     private String id;
     private Propiedad propiedad;
     private double precio;
@@ -116,13 +116,20 @@ public class Inmueble implements Serializable{
     public void setMensajes(ArrayList<Mensaje> mensajes) {
         this.mensajes = mensajes;
     }
-    
-    public boolean isActivo(){
+
+    public boolean isActivo() {
         return this.estado == Estado.DISPONIBLE;
     }
 
+//    public boolean PropiedadesCerradas() {
+//        if (this.estado == Estado.ARRENDADO && this.estado == Estado.VENDIDO) {
+//            return true;
+//        }
+//        return false;
+//    }
+
     @Override
     public String toString() {
-        return  "ID inmueble: "+id + " Dirección: "+propiedad.getDireccion();
-    }  
+        return "ID inmueble: " + id + " Dirección: " + propiedad.getDireccion();
+    }
 }

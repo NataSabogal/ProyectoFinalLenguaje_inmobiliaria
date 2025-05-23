@@ -188,7 +188,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
              Inmueble inm = controladorVentana.buscarInmueble(id);
             if (inm != null) {
                 this.dispose();
-                VentanaAgendarVisita agendar = new VentanaAgendarVisita(inm);
+                VentanaAgendarVisita agendar = new VentanaAgendarVisita(inm, cliente);
                 agendar.setVisible(true);
                 agendar.setLocationRelativeTo(null);
             }

@@ -5,10 +5,13 @@
 package vista;
 
 import controlador.ControladorAgenda;
+import exceptions.PosibilidadInmuebleConVisitaException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import modelo.Agenda;
+import modelo.Cliente;
 import modelo.Inmueble;
 
 /**
@@ -21,10 +24,12 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
      * Creates new form VentanaAgendarVisita2
      */
     ControladorAgenda agendaC;
-
-    public VentanaAgendarVisita(Inmueble inm) {
+    Cliente cliente;
+    
+    public VentanaAgendarVisita(Inmueble inm, Cliente cliente) {
         initComponents();
         agendaC = new ControladorAgenda();
+        this.cliente = cliente;
         txtDireccion.setText(inm.getPropiedad().getDireccion());
         txtID.setText(inm.getId());
         actualizarComboBoxes();
@@ -190,41 +195,49 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnAgendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarActionPerformed
-        String direccion = txtDireccion.getText();
-        String id = txtID.getText();
-        Date fecha = jDateChooser.getDate();
-        LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-        int hora = Integer.parseInt(cbHora.getSelectedItem() + "");
-        int min = Integer.parseInt(cbMin.getSelectedItem() + "");
-        LocalTime horaInicio = LocalTime.of(hora, min);
-        int duracion = Integer.parseInt(cbDuracion.getSelectedItem() + "");
-        LocalTime horaFin = horaInicio.plusHours(duracion);
-//        Agenda agenda = new Agenda(id, fechaAgenda, cliente, horaInicio, horaFin, rootPaneCheckingEnabled, duracion);
-//        boolean agendaC.guardarAgenda(agenda, inm)
+        try {
+            String direccion = txtDireccion.getText();
+            String id = txtID.getText();
+            Inmueble inm = agendaC.buscarInmueble(id);
+            Date fecha = jDateChooser.getDate();
+            LocalDate fechaAgenda = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+            int hora = Integer.parseInt(cbHora.getSelectedItem() + "");
+            int min = Integer.parseInt(cbMin.getSelectedItem() + "");
+            LocalTime horaInicio = LocalTime.of(hora, min);
+            int duracion = Integer.parseInt(cbDuracion.getSelectedItem() + "");
+            LocalTime horaFin = horaInicio.plusHours(duracion);
+            Agenda agenda = new Agenda(id, fechaAgenda, cliente, horaInicio, horaFin, duracion);
+            agendaC.guardarAgenda(agenda, inm);
+            JOptionPane.showMessageDialog(null, "Se registró correctamente la agenda");
+        } catch (PosibilidadInmuebleConVisitaException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+
     }//GEN-LAST:event_btnAgendarActionPerformed
 
     /**
      * @param args the command line arguments
      */
     private void actualizarComboBoxes() {
-
+        
         cbHora.removeAllItems();
         cbMin.removeAllItems();
         cbDuracion.removeAllItems();
-
+        
         for (int i = 7; i <= 17; i++) {
             cbHora.addItem(String.format("%02d", i));
         }
-
+        
         cbMin.addItem("00");
         cbMin.addItem("30");
-
+        
         for (int i = 1; i <= 3; i++) {
             cbDuracion.addItem(String.format("%d", i));
         }
-
+        
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -253,7 +266,7 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaAgendarVisita(null).setVisible(true);
+                new VentanaAgendarVisita(null, null).setVisible(true);
             }
         });
     }

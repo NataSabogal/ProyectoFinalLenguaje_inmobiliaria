@@ -1,10 +1,12 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
 
 import controlador.ControladorEmpleado;
+import exceptions.CedulaEnUsoException;
+import exceptions.PasswordRepetidaException;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
@@ -281,24 +283,26 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtCantidadPropiedades.getText().isEmpty()
                 && !txtEdad.getText().isEmpty() && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            String nombre = txtNombre.getText();
-            String cedula = txtCedula.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String fecha = txtFecha.getText();
-            String password = txtPassword.getText();
-            String telefono = txtTelefono.getText();
-            RolUsuario rolCliente = RolUsuario.EMPLEADO;
-            int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
-            TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-            Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-            boolean aux = empleadoController.guardarEmpleado(empleado);
-            if (aux) {
+            try {
+                String nombre = txtNombre.getText();
+                String cedula = txtCedula.getText();
+                int edad = Integer.parseInt(txtEdad.getText());
+                String fecha = txtFecha.getText();
+                String password = txtPassword.getText();
+                String telefono = txtTelefono.getText();
+                RolUsuario rolCliente = RolUsuario.EMPLEADO;
+                int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
+                TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+                Empleado empleado = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+                empleadoController.guardarEmpleado(empleado);
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 llenarTabla();
                 limpiarCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            } catch (CedulaEnUsoException | PasswordRepetidaException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }
@@ -336,7 +340,6 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtCantidadPropiedades.getText().isEmpty()
                 && !txtEdad.getText().isEmpty() && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-
             String nombre = txtNombre.getText();
             String cedula = txtCedula.getText();
             int edad = Integer.parseInt(txtEdad.getText());

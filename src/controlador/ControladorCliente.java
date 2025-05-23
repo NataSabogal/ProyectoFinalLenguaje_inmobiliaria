@@ -5,6 +5,8 @@
 package controlador;
 
 import dao.DAOUsuario;
+import exceptions.CedulaEnUsoException;
+import exceptions.PasswordRepetidaException;
 import java.util.ArrayList;
 import modelo.Cliente;
 import modelo.Usuario;
@@ -25,8 +27,16 @@ public class ControladorCliente {
         return daoU.buscarUsuario(cedula);
     }
 
-    public boolean guardarCliente(Cliente cliente) {
-        return daoU.guardarUsuario(cliente);
+    public void guardarCliente(Cliente cliente) throws CedulaEnUsoException, PasswordRepetidaException{
+        Usuario user = buscarUsuario(cliente.getCedula());
+        if (user != null) {
+            throw new CedulaEnUsoException();
+        }
+        Usuario aux = buscarUsuario(cliente.getPassword());
+        if (aux != null) {
+            throw new PasswordRepetidaException();
+        }
+        daoU.guardarUsuario(cliente);
     }
 
     public boolean eliminarCliente(String cedula) {

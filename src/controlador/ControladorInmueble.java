@@ -5,6 +5,10 @@
 package controlador;
 
 import dao.DAOInmueble;
+import dao.DAOUsuario;
+import exceptions.CantidadDePropiedadesNoCoincidenException;
+import exceptions.GestionarPropiedadDelMismoTipoException;
+import exceptions.IdInmuebleEnUsoException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empleado;
@@ -19,6 +23,7 @@ public class ControladorInmueble {
 
     DAOInmueble daoI;
     Empleado empleado;
+    DAOUsuario daoU;
 
     public ControladorInmueble(Empleado empleado) { //como parametro!!
         daoI = new DAOInmueble();
@@ -34,19 +39,22 @@ public class ControladorInmueble {
         return daoI.buscarInmueble(id);
     }
 
-    public boolean guardarInmueble(Inmueble inmueble, Empleado empleado) {
+    public void guardarInmueble(Inmueble inmueble, Empleado empleado) throws GestionarPropiedadDelMismoTipoException, CantidadDePropiedadesNoCoincidenException, IdInmuebleEnUsoException {
+        Inmueble aux = buscarInmueble(inmueble.getId());
+        if (aux != null) {
+            throw new IdInmuebleEnUsoException();
+        }
         if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
                 || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
 
-            return false;
+            throw new GestionarPropiedadDelMismoTipoException();
         }
-
         int activos = daoI.InmueblesActivosPorEmpleado(empleado);
         if (activos >= empleado.getCantidadPropiedades()) {
-            return false;
+            throw new CantidadDePropiedadesNoCoincidenException();
         }
 
-        return daoI.guardarInmueble(inmueble);
+        daoI.guardarInmueble(inmueble);
     }
 
     public boolean eliminarPropiedad(String id) {
@@ -100,6 +108,4 @@ public class ControladorInmueble {
         return salida;
     }
 
-    
-   
 }

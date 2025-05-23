@@ -163,10 +163,10 @@ public class VentanaPrincipalEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPropiedadesActivasActionPerformed
 
     private void btnHistorialEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialEmpleadoActionPerformed
-//        VentanaHistorialPropiedadesEmpleado empleado = new VentanaHistorialPropiedadesEmpleado(userController, inmController);
-//        empleado.setVisible(true);
-//        empleado.setLocationRelativeTo(null);
-//        this.dispose();
+        VentanaHistorialPropiedadesEmpleado emp = new VentanaHistorialPropiedadesEmpleado(empleado);
+        emp.setVisible(true);
+        emp.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnHistorialEmpleadoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed

@@ -4,7 +4,9 @@
  */
 package controlador;
 
+import dao.DAOAgenda;
 import dao.DAOInmueble;
+import exceptions.PosibilidadInmuebleConVisitaException;
 import modelo.Agenda;
 import modelo.Inmueble;
 
@@ -14,29 +16,32 @@ import modelo.Inmueble;
  */
 public class ControladorAgenda {
     
+    DAOAgenda daoA;
     DAOInmueble daoI;
 
     public ControladorAgenda() {
+        daoA = new DAOAgenda();
         daoI = new DAOInmueble();
     }
 
-    public Agenda buscarAgenda(String id, Inmueble inm) {
-        return daoI.buscarAgenda(id, inm);
+    public Agenda buscarAgendaPorId(String id, Inmueble inm) {
+        return daoA.buscarAgendaPorId(id, inm);
     }
 
-    public boolean guardarAgenda(Agenda agenda, Inmueble inm) {
-        if (inm.isVisita() == false ) {
-            return false;
+    public void guardarAgenda(Agenda agenda, Inmueble inm) throws PosibilidadInmuebleConVisitaException {
+        if (!inm.isVisita()) {
+           throw new PosibilidadInmuebleConVisitaException();
         }
-        return daoI.guardarAgenda(agenda, inm);
+         daoA.guardarAgenda(agenda, inm);
     }
 
-    public boolean eliminarAgenda(String id, Inmueble inm) {
-        return daoI.eliminarAgenda(id, inm);
+    public Inmueble buscarInmueble(String id) {
+        return daoI.buscarInmueble(id);
     }
+    
+    
+   
 
-    public boolean editarAgenda(Agenda agenda, Inmueble inm) {
-        return daoI.editarAgenda(agenda, inm);
-    }
+   
     
 }

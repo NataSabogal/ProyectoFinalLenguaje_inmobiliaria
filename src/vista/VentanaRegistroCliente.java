@@ -5,6 +5,8 @@
 package vista;
 
 import controlador.ControladorCliente;
+import exceptions.CedulaEnUsoException;
+import exceptions.PasswordRepetidaException;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.RolUsuario;
@@ -201,27 +203,30 @@ public class VentanaRegistroCliente extends javax.swing.JFrame {
         if (!txtCedula.getText().isEmpty() && !txtCiudad.getText().isEmpty() && !txtDirecciondeResidencia.getText().isEmpty() && !txtEdad.getText().isEmpty()
                 && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtOcupacion.getText().isEmpty()
                 && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            String nombre = txtNombre.getText();
-            String cedula = txtCedula.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String fecha = txtFecha.getText();
-            String password = txtPassword.getText();
-            String telefono = txtTelefono.getText();
-            RolUsuario rolCliente = RolUsuario.CLIENTE;
-            String direccionR = txtDirecciondeResidencia.getText();
-            String ciudad = txtCiudad.getText();
-            String ocupacion = txtOcupacion.getText();
-            Cliente cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-            boolean aux = clienteController.guardarCliente(cliente);
-            if (aux) {
+            try {
+                String nombre = txtNombre.getText();
+                String cedula = txtCedula.getText();
+                int edad = Integer.parseInt(txtEdad.getText());
+                String fecha = txtFecha.getText();
+                String password = txtPassword.getText();
+                String telefono = txtTelefono.getText();
+                RolUsuario rolCliente = RolUsuario.CLIENTE;
+                String direccionR = txtDirecciondeResidencia.getText();
+                String ciudad = txtCiudad.getText();
+                String ocupacion = txtOcupacion.getText();
+                Cliente cliente = new Cliente(direccionR, ciudad, ocupacion, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+                clienteController.guardarCliente(cliente);
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso!");
                 VentanaLogIn login = new VentanaLogIn();
                 login.setVisible(true);
                 login.setLocationRelativeTo(null);
                 this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo hacer el registro");
+            } catch (CedulaEnUsoException | PasswordRepetidaException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
+            
+
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }

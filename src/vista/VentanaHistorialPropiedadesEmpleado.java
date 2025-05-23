@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorPropiedadescerradasEmpleado;
 import modelo.Empleado;
 
 /**
@@ -16,10 +17,13 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaHistorialPropiedadesEmpleado
      */
     Empleado empleado;
+    ControladorPropiedadescerradasEmpleado propiedadesCerradasController;
     
     public VentanaHistorialPropiedadesEmpleado(Empleado empleado) {
         initComponents();
+        propiedadesCerradasController = new ControladorPropiedadescerradasEmpleado(empleado);
         this.empleado = empleado;
+        //llenarTabla();
     }
 
     /**
@@ -33,6 +37,8 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnAtras = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableHistorial = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +52,19 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
             }
         });
 
+        tableHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableHistorial);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -54,13 +73,19 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
                 .addContainerGap(309, Short.MAX_VALUE)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAtras)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -87,6 +112,10 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+//    public void llenarTabla (){
+//        tableHistorial.setModel(propiedadesCerradasController.llenarPropiedadesCerradasEmpleado());
+//    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -122,5 +151,7 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableHistorial;
     // End of variables declaration//GEN-END:variables
 }

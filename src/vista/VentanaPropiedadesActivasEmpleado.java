@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorPropiedadesActivasEmpleado;
 import modelo.Empleado;
 
 /**
@@ -15,11 +16,14 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPropiedadesActivasEmpleado
      */
+    ControladorPropiedadesActivasEmpleado controllerPropiedadesA;
     Empleado empleado;
 
     public VentanaPropiedadesActivasEmpleado(Empleado empleado) {
         initComponents();
+        controllerPropiedadesA = new ControladorPropiedadesActivasEmpleado(empleado);
         this.empleado = empleado; 
+        llenarTabla();
     }
 
     /**
@@ -106,6 +110,9 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public void llenarTabla(){
+        tablaPropiedades.setModel(controllerPropiedadesA.llenarPropiedadesActivasEmpleado());
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

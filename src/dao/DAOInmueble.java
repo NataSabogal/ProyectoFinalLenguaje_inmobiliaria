@@ -31,14 +31,12 @@ public class DAOInmueble {
         return null;
     }
 
-    public boolean guardarInmueble(Inmueble inmueble) {
+    public void guardarInmueble(Inmueble inmueble) {
         Inmueble aux = buscarInmueble(inmueble.getId());
         if (aux == null) {
             inmuebles.add(inmueble);
             SerializadoraInmueble.getInstancia().escribirInmueble();
-            return true;
         }
-        return false;
     }
 
     public boolean eliminarPropiedad(String id) {
@@ -92,14 +90,12 @@ public class DAOInmueble {
         return null;
     }
 
-    public boolean guardarAgenda(Agenda agenda, Inmueble inm) {
+    public void guardarAgenda(Agenda agenda, Inmueble inm) {
         Agenda aux = buscarAgenda(agenda.getId(), inm);
         if (aux == null) {
             inm.getAgendas().add(agenda);
             SerializadoraInmueble.getInstancia().escribirInmueble();
-            return true;
         }
-        return false;
     }
 
     public boolean eliminarAgenda(String id, Inmueble inm) {
@@ -112,18 +108,18 @@ public class DAOInmueble {
         return false;
     }
 
-    public boolean editarAgenda(Agenda agenda, Inmueble inm) {
-        Agenda aux = buscarAgenda(agenda.getId(), inm);
-        if (aux != null) {
-            aux.setHoraInicio(agenda.getHoraInicio());
-            aux.setCancelada(agenda.isCancelada());
-            aux.setDuracionHoras(agenda.getDuracionHoras());
-            aux.setFecha(agenda.getFecha());
-            aux.setHoraFinal(agenda.getHoraFinal());
-            SerializadoraInmueble.getInstancia().escribirInmueble();
-            return true;
-        }
-        return false;
-    }
+//    public boolean editarAgenda(Agenda agenda, Inmueble inm) {
+//        Agenda aux = buscarAgenda(agenda.getId(), inm);
+//        if (aux != null) {
+//            aux.setHoraInicio(agenda.getHoraInicio());
+//            aux.setCancelada(agenda.isCancelada());
+//            aux.setDuracionHoras(agenda.getDuracionHoras());
+//            aux.setFecha(agenda.getFecha());
+//            aux.setHoraFinal(agenda.getHoraFinal());
+//            SerializadoraInmueble.getInstancia().escribirInmueble();
+//            return true;
+//        }
+//        return false;
+//    }
 
 }

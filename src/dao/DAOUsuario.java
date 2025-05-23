@@ -19,7 +19,7 @@ public class DAOUsuario {
     private ArrayList<Usuario> usuarios;
 
     public DAOUsuario() {
-       this.usuarios = SerializadoraUsuario.getInstancia().getUsuarios();
+        this.usuarios = SerializadoraUsuario.getInstancia().getUsuarios();
     }
 
     public Usuario buscarUsuario(String cedula) {
@@ -31,14 +31,12 @@ public class DAOUsuario {
         return null;
     }
 
-    public boolean guardarUsuario(Usuario user) {
+    public void guardarUsuario(Usuario user) {
         Usuario aux = buscarUsuario(user.getCedula());
         if (aux == null) {
             usuarios.add(user);
             SerializadoraUsuario.getInstancia().escribirUsuario();
-            return true;
         }
-        return false;
     }
 
     public boolean eliminarUsuario(String cedula) {
@@ -98,6 +96,12 @@ public class DAOUsuario {
 
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
+    }
+    
+    public int obtenerPropiedadesACtivasEmpleado (Empleado empleado){
+        Empleado emp = buscarEmpleado(empleado.getCedula());
+        int propiedadesActivas = emp.getCantidadPropiedades();
+        return propiedadesActivas;
     }
 
 }

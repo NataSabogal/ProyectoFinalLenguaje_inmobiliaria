@@ -24,8 +24,8 @@ public class ControladorUsuario {
         return daoU.buscarUsuario(cedula);
     }
 
-    public boolean guardarUsuario(Usuario user) {
-        return daoU.guardarUsuario(user);
+    public void guardarUsuario(Usuario user) {
+        daoU.guardarUsuario(user);
     }
 
     public boolean eliminarUsuario(String cedula) {
@@ -39,5 +39,5 @@ public class ControladorUsuario {
     public Empleado buscarEmpleado(String cedula) {
         return daoU.buscarEmpleado(cedula);
     }
- 
+
 }
