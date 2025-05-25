@@ -19,16 +19,16 @@ public class Agenda implements Serializable{
     private Cliente cliente;
     private LocalTime horaInicio;
     private LocalTime horaFinal;
-//    private boolean cancelada;
+    private boolean cancelada;
     private int duracionHoras;
 
-    public Agenda(String id, LocalDate fecha, Cliente cliente, LocalTime horaInicio, LocalTime horaFinal,  int duracionHoras) {
+    public Agenda(String id, LocalDate fecha, Cliente cliente, LocalTime horaInicio, LocalTime horaFinal, boolean cancelada, int duracionHoras) {
         this.id = id;
         this.fecha = fecha;
         this.cliente = cliente;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
-        //this.cancelada = cancelada;
+        this.cancelada = cancelada;
         this.duracionHoras = duracionHoras;
     }
 

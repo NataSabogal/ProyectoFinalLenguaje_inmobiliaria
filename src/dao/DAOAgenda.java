@@ -6,7 +6,7 @@ package dao;
 
 import modelo.Agenda;
 import modelo.Inmueble;
-import serializadora.SerializadoraAgenda;
+import serializadora.SerializadoraInmueble;
 
 /**
  *
@@ -15,24 +15,25 @@ import serializadora.SerializadoraAgenda;
 public class DAOAgenda {
 
     public DAOAgenda() {
-        SerializadoraAgenda.getInstancia().getAgenda();
+        SerializadoraInmueble.getInstancia().getInmueble();
     }
 
     public Agenda buscarAgendaPorId(String id, Inmueble inm) {
         for (int i = 0; i < inm.getAgendas().size(); i++) {
-            if (inm.getAgendas().get(i) != null && inm.getAgendas().get(i).getId().equals(id) && inm.isVisita()) {
+            if (inm.getAgendas().get(i) != null && inm.getAgendas().get(i).getId().equals(id)) {
                 return inm.getAgendas().get(i);
             }
         }
         return null;
 
     }
-    
-    public void guardarAgenda (Agenda agenda, Inmueble inm){
+
+    public void guardarAgenda(Agenda agenda, Inmueble inm) {
         Agenda aux = buscarAgendaPorId(agenda.getId(), inm);
         if (aux == null) {
-           inm.getAgendas().add(agenda);
-           SerializadoraAgenda.getInstancia().escribirAgenda();
+            inm.getAgendas().add(agenda);
+            SerializadoraInmueble.getInstancia().escribirInmueble();
         }
     }
+
 }

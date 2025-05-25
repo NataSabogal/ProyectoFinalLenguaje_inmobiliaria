@@ -19,10 +19,13 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
      * Creates new form VentanaCliente
      */
     Cliente cliente;
+    Inmueble inm;
     ControladorVentanaPrincipalCliente controladorVentana;
-    public VentanaPrincipalCliente(Cliente cliente) {
+
+    public VentanaPrincipalCliente(Cliente cliente, Inmueble inm) {
         initComponents();
         this.cliente = cliente;
+        this.inm = inm;
         controladorVentana = new ControladorVentanaPrincipalCliente();
         llenarTablaInmueble();
     }
@@ -41,7 +44,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         btnAgendarVisita = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePropiedades = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnInfoPropiedad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtInmuebleSeleccionado = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -80,7 +83,12 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablePropiedades);
 
-        jButton1.setText("Información Propiedad");
+        btnInfoPropiedad.setText("Información Propiedad");
+        btnInfoPropiedad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoPropiedadActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Inmueble Seleccionado:");
 
@@ -97,7 +105,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
                 .addComponent(txtInmuebleSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInfoPropiedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgendarVisita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -112,7 +120,7 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnInfoPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,11 +189,11 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemInfoClienteActionPerformed
 
     private void btnAgendarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendarVisitaActionPerformed
-         if (txtInmuebleSeleccionado.getText().isEmpty()) {
+        if (txtInmuebleSeleccionado.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el inmueble en la tabla");
         } else {
             String id = txtInmuebleSeleccionado.getText();
-             Inmueble inm = controladorVentana.buscarInmueble(id);
+            Inmueble inm = controladorVentana.buscarInmueble(id);
             if (inm != null) {
                 this.dispose();
                 VentanaAgendarVisita agendar = new VentanaAgendarVisita(inm, cliente);
@@ -197,19 +205,34 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
 
     private void tablePropiedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePropiedadesMouseClicked
         int fila = tablePropiedades.getSelectedRow();
-            if (fila < 0) {
-                JOptionPane.showMessageDialog(this, "Selecciona un suplemento primero");
-                return;
-            }
-            txtInmuebleSeleccionado.setText(controladorVentana.llenar().getValueAt(fila, 0).toString());
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un suplemento primero");
+            return;
+        }
+        txtInmuebleSeleccionado.setText(controladorVentana.llenar().getValueAt(fila, 0).toString());
 
     }//GEN-LAST:event_tablePropiedadesMouseClicked
 
-    public void llenarTablaInmueble (){
+    private void btnInfoPropiedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoPropiedadActionPerformed
+        if (txtInmuebleSeleccionado.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el inmueble en la tabla");
+        } else {
+            String id = txtInmuebleSeleccionado.getText();
+            Inmueble inm = controladorVentana.buscarInmueble(id);
+            if (inm != null) {
+                VentanaVerInfoCompraYMensajePropiedad mensaje = new VentanaVerInfoCompraYMensajePropiedad(inm, cliente);
+                mensaje.setVisible(true);
+                mensaje.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        }
+
+    }//GEN-LAST:event_btnInfoPropiedadActionPerformed
+
+    public void llenarTablaInmueble() {
         tablePropiedades.setModel(controladorVentana.llenar());
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -241,14 +264,14 @@ public class VentanaPrincipalCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipalCliente(null).setVisible(true);
+                new VentanaPrincipalCliente(null, null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgendarVisita;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnInfoPropiedad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

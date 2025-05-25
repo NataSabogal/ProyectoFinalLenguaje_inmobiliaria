@@ -5,6 +5,7 @@
 package vista;
 
 import modelo.Cliente;
+import modelo.Inmueble;
 
 /**
  *
@@ -16,6 +17,7 @@ public class VentanaPerfilCliente extends javax.swing.JFrame {
      * Creates new form VentanaPerfilCliente
      */
     Cliente cliente;
+    Inmueble inm;
     public VentanaPerfilCliente(Cliente cliente) {
         initComponents();
         this.cliente = cliente;
@@ -191,7 +193,7 @@ public class VentanaPerfilCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        VentanaPrincipalCliente clie = new VentanaPrincipalCliente(cliente);
+        VentanaPrincipalCliente clie = new VentanaPrincipalCliente(cliente, inm);
         clie.setVisible(true);
         clie.setLocationRelativeTo(null);
         this.dispose();

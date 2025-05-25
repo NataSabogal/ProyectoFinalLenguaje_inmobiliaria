@@ -51,9 +51,7 @@ public class ControladorEmpleado {
     public Usuario buscarUsuario(String cedula) {
         return daoU.buscarUsuario(cedula);
     }
-    
-    
-    
+
     public DefaultTableModel llenarTablaEmpleado() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Nombre", "Cédula", "Constraseña", "Fecha de Nacimineto", "Telefono", "Edad", "Cantidad de Propiedaades", "Tipo Propiedad"});

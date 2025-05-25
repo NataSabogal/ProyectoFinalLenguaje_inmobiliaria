@@ -48,6 +48,8 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaP = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
+        btnVerAgenda = new javax.swing.JButton();
+        txtPropiedadAgenda = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         txtID = new javax.swing.JTextField();
@@ -106,6 +108,15 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             }
         });
 
+        btnVerAgenda.setText("Ver Agendas");
+        btnVerAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerAgendaActionPerformed(evt);
+            }
+        });
+
+        txtPropiedadAgenda.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -114,6 +125,12 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(txtPropiedadAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVerAgenda)
+                .addGap(18, 18, 18))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +139,11 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 .addComponent(btnAtras)
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(502, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVerAgenda)
+                    .addComponent(txtPropiedadAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(176, 176, 176))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -304,12 +325,10 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -343,7 +362,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 limpiarCampos();
                 llenarTabla();
 
-            } catch (GestionarPropiedadDelMismoTipoException | CantidadDePropiedadesNoCoincidenException |IdInmuebleEnUsoException e) {
+            } catch (GestionarPropiedadDelMismoTipoException | CantidadDePropiedadesNoCoincidenException | IdInmuebleEnUsoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
 
@@ -412,8 +431,28 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void tablaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPMouseClicked
-
+        int fila = tablaP.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un suplemento primero");
+            return;
+        }
+        txtPropiedadAgenda.setText(inmController.llenarTablaInmueblePorEmpleado().getValueAt(fila, 0).toString());
     }//GEN-LAST:event_tablaPMouseClicked
+
+    private void btnVerAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAgendaActionPerformed
+        if (txtPropiedadAgenda.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el inmueble en la tabla");
+        } else {
+            String id = txtPropiedadAgenda.getText();
+            Inmueble inm = inmController.buscarInmueble(id);
+            if (inm != null) {
+                VentanaVerAgendaEmpleado agendaE = new VentanaVerAgendaEmpleado(empleado);
+                agendaE.setVisible(true);
+                agendaE.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_btnVerAgendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -440,7 +479,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
 
     private void configurarComboBox(Empleado empleado) {
         cbTipoPropiedad.removeAllItems();
-
         if (empleado.getTipoPropiedad() == TipoPropiedad.VENTA) {
             cbTipoPropiedad.addItem("VENTA");
         } else if (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO) {
@@ -489,6 +527,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnVerAgenda;
     private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> cbTipoPropiedad;
     private javax.swing.JCheckBox chBxVisita;
@@ -515,5 +554,6 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtPropiedadAgenda;
     // End of variables declaration//GEN-END:variables
 }

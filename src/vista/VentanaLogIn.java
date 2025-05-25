@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Empleado;
+import modelo.Inmueble;
 import modelo.RolUsuario;
 import modelo.Usuario;
 
@@ -23,7 +24,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
      */
     private ControladorLogIn loginController;
    // ControladorInmueble inmController;
-   
+    Inmueble inm;
 
     public VentanaLogIn() {
         initComponents();
@@ -194,7 +195,7 @@ public class VentanaLogIn extends javax.swing.JFrame {
 
             } else if (aux.getRol() == RolUsuario.CLIENTE) {
                 Cliente cliente = (Cliente) aux;
-                VentanaPrincipalCliente vista = new VentanaPrincipalCliente(cliente);
+                VentanaPrincipalCliente vista = new VentanaPrincipalCliente(cliente, inm);
                 vista.setVisible(true);
                 vista.setLocationRelativeTo(null);
                 this.dispose();

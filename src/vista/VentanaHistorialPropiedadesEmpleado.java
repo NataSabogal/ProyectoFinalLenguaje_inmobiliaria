@@ -23,7 +23,7 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
         initComponents();
         propiedadesCerradasController = new ControladorPropiedadescerradasEmpleado(empleado);
         this.empleado = empleado;
-        //llenarTabla();
+        llenarTabla();
     }
 
     /**
@@ -113,9 +113,9 @@ public class VentanaHistorialPropiedadesEmpleado extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-//    public void llenarTabla (){
-//        tableHistorial.setModel(propiedadesCerradasController.llenarPropiedadesCerradasEmpleado());
-//    }
+    public void llenarTabla (){
+        tableHistorial.setModel(propiedadesCerradasController.llenarPropiedadesCerradasEmpleado());
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

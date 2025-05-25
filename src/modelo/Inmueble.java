@@ -33,8 +33,8 @@ public class Inmueble implements Serializable {
         this.estado = estado;
         this.empleado = empleado;
         this.descripcion = descripcion;
-//        this.agendas = agendas;
-//        this.mensajes = mensajes;
+        this.agendas = new ArrayList<>();
+        this.mensajes = new ArrayList<>();
     }
 
     public String getId() {
@@ -121,12 +121,17 @@ public class Inmueble implements Serializable {
         return this.estado == Estado.DISPONIBLE;
     }
 
-//    public boolean PropiedadesCerradas() {
-//        if (this.estado == Estado.ARRENDADO && this.estado == Estado.VENDIDO) {
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean PropiedadesCerradas() {
+        return this.estado == Estado.ARRENDADO || this.estado == Estado.VENDIDO;
+    }
+
+    public void cambiarEstado(TipoPropiedad tipoPropiedad) {
+        if (tipoPropiedad == TipoPropiedad.VENTA) {
+            this.estado = Estado.VENDIDO;
+        } else if (tipoPropiedad == TipoPropiedad.ARRENDAMIENTO) {
+            this.estado = Estado.ARRENDADO;
+        }
+    }
 
     @Override
     public String toString() {
