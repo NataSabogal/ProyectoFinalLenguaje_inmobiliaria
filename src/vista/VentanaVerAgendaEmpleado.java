@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorVerAgendaEmpleado;
 import modelo.Empleado;
 
 /**
@@ -16,8 +17,10 @@ public class VentanaVerAgendaEmpleado extends javax.swing.JFrame {
      * Creates new form VentanaVerAgendaEmpleado
      */
     Empleado empleado;
+    ControladorVerAgendaEmpleado controller;
     public VentanaVerAgendaEmpleado(Empleado empleado) {
         initComponents();
+        controller = new ControladorVerAgendaEmpleado();
         this.empleado = empleado;
     }
 
@@ -112,6 +115,7 @@ public class VentanaVerAgendaEmpleado extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+   
     /**
      * @param args the command line arguments
      */

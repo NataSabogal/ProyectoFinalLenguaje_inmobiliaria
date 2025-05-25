@@ -72,13 +72,13 @@ public class Agenda implements Serializable{
         this.horaFinal = horaFinal;
     }
 
-//    public boolean isCancelada() {
-//        return cancelada;
-//    }
-//
-//    public void setCancelada(boolean cancelada) {
-//        this.cancelada = cancelada;
-//    }
+    public boolean isCancelada() {
+        return cancelada;
+    }
+
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
 
     public int getDuracionHoras() {
         return duracionHoras;

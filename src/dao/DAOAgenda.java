@@ -35,5 +35,7 @@ public class DAOAgenda {
             SerializadoraInmueble.getInstancia().escribirInmueble();
         }
     }
+    
+    
 
 }

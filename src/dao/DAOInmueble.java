@@ -81,30 +81,6 @@ public class DAOInmueble {
         return cont;
     }
 
-    public Agenda buscarAgenda(String id, Inmueble inm) {
-        for (int i = 0; i < inm.getAgendas().size(); i++) {
-            if (inm.getAgendas().get(i) != null && inm.getAgendas().get(i).getId().equals(id)) {
-                return inm.getAgendas().get(i);
-            }
-        }
-        return null;
-    }
-
-    public void guardarAgenda(Agenda agenda, Inmueble inm) {
-        Agenda aux = buscarAgenda(agenda.getId(), inm);
-        if (aux == null) {
-            inm.getAgendas().add(agenda);
-            SerializadoraInmueble.getInstancia().escribirInmueble();
-        }
-    }
     
-//    public ArrayList<Inmueble> historialInmuebles (Inmueble inm){
-//        ArrayList<Inmueble> historial = new ArrayList<>();
-//        for (int i = 0; i < historial.size(); i++) {
-//            if (historial.get(i).getEstado().ARRENDADO && historial.get(i).getEstado().VENDIDO) {
-//                
-//            }
-//        }
-//    }
 
 }

@@ -70,10 +70,6 @@ public class ControladorInmueble {
         return daoI.editarInmueble(inmueble);
     }
 
-    public ArrayList<Inmueble> getInmuebles() {
-        return daoI.getInmuebles();
-    }
-
     public DefaultTableModel llenarTablaInmueblePorEmpleado() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{"ID", "Dirección", "Ciudad", "Número de Habitaciones", "Número de Baños", "Número de Plantas", "Tipo de Propiedad", "Estado", "Visita", "Descripción", "Precio"});

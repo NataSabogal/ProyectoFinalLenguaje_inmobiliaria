@@ -44,20 +44,19 @@ public class ControladorInmuebleAdmin {
         for (int i = 0; i < lista.size(); i++) {
             if (lista.get(i).PropiedadesCerradas()) {
                 model.addRow(new Object[]{
-                lista.get(i).getId(),
-                lista.get(i).getPropiedad().getDireccion(),
-                lista.get(i).getPropiedad().getCiudad(),
-                lista.get(i).getPropiedad().getNumHabitaciones(),
-                lista.get(i).getPropiedad().getNunBanios(),
-                lista.get(i).getPropiedad().getNumPlantas(),
-                lista.get(i).getTipo(),
-                lista.get(i).getEstado(),
-                lista.get(i).isVisita(),
-                lista.get(i).getDescripcion(),
-                lista.get(i).getPrecio()
-            });
+                    lista.get(i).getId(),
+                    lista.get(i).getPropiedad().getDireccion(),
+                    lista.get(i).getPropiedad().getCiudad(),
+                    lista.get(i).getPropiedad().getNumHabitaciones(),
+                    lista.get(i).getPropiedad().getNunBanios(),
+                    lista.get(i).getPropiedad().getNumPlantas(),
+                    lista.get(i).getTipo(),
+                    lista.get(i).getEstado(),
+                    lista.get(i).isVisita(),
+                    lista.get(i).getDescripcion(),
+                    lista.get(i).getPrecio()
+                });
             }
-            
 
         }
         return model;
