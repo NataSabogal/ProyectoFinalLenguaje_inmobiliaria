@@ -35,7 +35,20 @@ public class DAOAgenda {
             SerializadoraInmueble.getInstancia().escribirInmueble();
         }
     }
-    
-    
+
+    public boolean eliminarAgendaPorId (String id, Inmueble inm) {
+        Agenda aux = buscarAgendaPorId(id, inm);
+        if (aux != null) {
+            inm.getAgendas().remove(aux);
+            SerializadoraInmueble.getInstancia().escribirInmueble();
+            return true;
+        }
+        return false;
+    }
+
+    public void cancelarTodasLasAgendas(Inmueble inm) {
+        inm.getAgendas().clear();
+        SerializadoraInmueble.getInstancia().escribirInmueble();
+    }
 
 }

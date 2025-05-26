@@ -332,28 +332,35 @@ public class VentanaRegistroPropiedadAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarGestionActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String id = txtID.getText();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
-        boolean visita = chBxVisita.isSelected();
-        String direccion = txtDireccion.getText();
-        String ciudad = txtCiudad.getText();
-        String descripcion = txtDescripcion.getText();
-        int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
-        int numBanios = (Integer) spinnerNumBanios.getValue();
-        int numPlantas = (Integer) spinnerNumPlantas.getValue();
-        Inmueble inmuebleOriginal = (Inmueble) cbPropiedades.getSelectedItem();
-        Empleado emp = inmuebleOriginal.getEmpleado();
-        TipoPropiedad tipPropiedad = (TipoPropiedad) inmuebleOriginal.getTipo();
-        Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, emp, descripcion);
-        boolean aux = controllerAdmin.editarInmuebleConEmpleado(inmueble);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Se editó correctamente");
-            limpiarCampos();
+        if (!txtCiudad.getText().isEmpty() && !txtDescripcion.getText().isEmpty() && !txtDireccion.getText().isEmpty()
+                && !txtEmpleado.getText().isEmpty() && !txtID.getText().isEmpty() && !txtPrecio.getText().isEmpty()) {
+            String id = txtID.getText();
+            double precio = Double.parseDouble(txtPrecio.getText());
+            Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
+            boolean visita = chBxVisita.isSelected();
+            String direccion = txtDireccion.getText();
+            String ciudad = txtCiudad.getText();
+            String descripcion = txtDescripcion.getText();
+            int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+            int numBanios = (Integer) spinnerNumBanios.getValue();
+            int numPlantas = (Integer) spinnerNumPlantas.getValue();
+            Inmueble inmuebleOriginal = (Inmueble) cbPropiedades.getSelectedItem();
+            Empleado emp = inmuebleOriginal.getEmpleado();
+            TipoPropiedad tipPropiedad = (TipoPropiedad) inmuebleOriginal.getTipo();
+            Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+            Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, emp, descripcion);
+            boolean aux = controllerAdmin.editarInmuebleConEmpleado(inmueble);
+            if (aux) {
+                JOptionPane.showMessageDialog(null, "Se editó correctamente");
+                limpiarCampos();
+                txtEmpleado.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo editar");
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo editar");
+            JOptionPane.showMessageDialog(null, "Asegurese de completar todos los campos para editar");
         }
+
 
     }//GEN-LAST:event_btnEditarActionPerformed
 

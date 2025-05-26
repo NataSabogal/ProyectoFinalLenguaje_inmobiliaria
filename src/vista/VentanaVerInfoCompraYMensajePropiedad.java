@@ -5,10 +5,14 @@
 package vista;
 
 import controlador.ControladorComprayMensajeCliente;
+import exceptions.MensajePendienteException;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.UUID;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Inmueble;
+import modelo.Mensaje;
 
 /**
  *
@@ -45,6 +49,7 @@ public class VentanaVerInfoCompraYMensajePropiedad extends javax.swing.JFrame {
             btnCompraArrendo.setText("Comprar");
         }
 
+        actualizarHistorialCliente();
     }
 
     /**
@@ -80,7 +85,7 @@ public class VentanaVerInfoCompraYMensajePropiedad extends javax.swing.JFrame {
         txtNumBanios = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMensaje = new javax.swing.JTextArea();
         txtMensajeEnviar = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -231,9 +236,10 @@ public class VentanaVerInfoCompraYMensajePropiedad extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comentarios\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 1, 24))); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtMensaje.setEditable(false);
+        txtMensaje.setColumns(20);
+        txtMensaje.setRows(5);
+        jScrollPane1.setViewportView(txtMensaje);
 
         txtMensajeEnviar.setForeground(new java.awt.Color(204, 204, 204));
         txtMensajeEnviar.setText("Deja tu comentario...");
@@ -361,21 +367,40 @@ public class VentanaVerInfoCompraYMensajePropiedad extends javax.swing.JFrame {
         Inmueble aux = controller.buscarInmueble(id);
         if (aux != null) {
             controller.CompraArrendo(inm);
-            JOptionPane.showMessageDialog(null, "Compró exitosamente el inmueble");
+            JOptionPane.showMessageDialog(null, "Disfrute de su propiedad");
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo comprar");
+            JOptionPane.showMessageDialog(null, "No se pudo darle gestión");
         }
     }//GEN-LAST:event_btnCompraArrendoActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        String texto = txtMensajeEnviar.getText();
-        jTextArea1.setText(texto);
-        txtMensajeEnviar.setText("");
+        String texto = txtMensajeEnviar.getText().trim();
+        try {
+            String id = UUID.randomUUID().toString();
+            Mensaje mensaje = new Mensaje(id, texto, null, cliente);
+            controller.guardarMensaje(inm, mensaje);
+            txtMensajeEnviar.setText("");
+            actualizarHistorialCliente();
+        } catch (MensajePendienteException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public void actualizarHistorialCliente() {
+        txtMensaje.setText("");
+        ArrayList<Mensaje> mensajes = controller.obtenerMensajesPorInmueble(inm);
+        for (int i = 0; i < mensajes.size(); i++) {
+            Mensaje m = mensajes.get(i);
+            txtMensaje.append("Tu: " + m.getContenido() + "\n");
+            if (m.estaRespondido()) {
+                txtMensaje.append("Encargado: " + m.getRespuesta() + "\n");
+            }
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -427,12 +452,12 @@ public class VentanaVerInfoCompraYMensajePropiedad extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtID;
+    private javax.swing.JTextArea txtMensaje;
     private javax.swing.JTextField txtMensajeEnviar;
     private javax.swing.JTextField txtNumBanios;
     private javax.swing.JTextField txtNumHabitaciones;

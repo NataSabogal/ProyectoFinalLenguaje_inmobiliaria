@@ -5,26 +5,23 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
  * @author nataliasabogalrada
  */
-public class Mensaje implements Serializable{
-    
-    private String id;
-    private Cliente cliente; 
-    private String contenido;
-    private Date fechaEnvio;
-    private boolean respondido;
+public class Mensaje implements Serializable {
 
-    public Mensaje(String id, Cliente cliente, String contenido, Date fechaEnvio, boolean respondido) {
+    private String id;
+    private String contenido;
+    private String respuesta;
+    private Cliente cliente;
+
+    public Mensaje(String id, String contenido, String respuesta, Cliente cliente) {
         this.id = id;
-        this.cliente = cliente;
         this.contenido = contenido;
-        this.fechaEnvio = fechaEnvio;
-        this.respondido = respondido;
+        this.respuesta = respuesta;
+        this.cliente = cliente;
     }
 
     public String getId() {
@@ -35,14 +32,6 @@ public class Mensaje implements Serializable{
         this.id = id;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public String getContenido() {
         return contenido;
     }
@@ -51,19 +40,23 @@ public class Mensaje implements Serializable{
         this.contenido = contenido;
     }
 
-    public Date getFechaEnvio() {
-        return fechaEnvio;
+    public String getRespuesta() {
+        return respuesta;
     }
 
-    public void setFechaEnvio(Date fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
     }
 
-    public boolean isRespondido() {
-        return respondido;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setRespondido(boolean respondido) {
-        this.respondido = respondido;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public boolean estaRespondido() {
+        return respuesta != null && !respuesta.isEmpty();
     }
 }

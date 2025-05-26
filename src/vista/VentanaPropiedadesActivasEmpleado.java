@@ -5,7 +5,9 @@
 package vista;
 
 import controlador.ControladorPropiedadesActivasEmpleado;
+import javax.swing.JOptionPane;
 import modelo.Empleado;
+import modelo.Inmueble;
 
 /**
  *
@@ -19,6 +21,7 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
     ControladorPropiedadesActivasEmpleado controllerPropiedadesA;
     Empleado empleado;
 
+    
     public VentanaPropiedadesActivasEmpleado(Empleado empleado) {
         initComponents();
         controllerPropiedadesA = new ControladorPropiedadesActivasEmpleado(empleado);
@@ -39,6 +42,9 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPropiedades = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        txtPropiedad = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +62,11 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPropiedades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPropiedadesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPropiedades);
 
         btnAtras.setText("⤺");
@@ -65,25 +76,53 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Ver Mensajes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        txtPropiedad.setEditable(false);
+
+        jLabel1.setText("Inmueble:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(104, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(jButton1)
+                                .addGap(27, 27, 27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnAtras)
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(txtPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -106,6 +145,31 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
         principalE.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (txtPropiedad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar el inmueble en la tabla");
+        } else {
+            String id = txtPropiedad.getText();
+            Inmueble inm = controllerPropiedadesA.buscarInmueble(id);
+            if (inm != null) {
+                VentanaResponderMensajePorEmpleado mensaje = new VentanaResponderMensajePorEmpleado(inm, empleado);
+                mensaje.setVisible(true);
+                mensaje.setLocationRelativeTo(null);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tablaPropiedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPropiedadesMouseClicked
+        int fila = tablaPropiedades.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un suplemento primero");
+            return;
+        }
+        txtPropiedad.setText(controllerPropiedadesA.llenarPropiedadesActivasEmpleado().getValueAt(fila, 0).toString());
+    
+    }//GEN-LAST:event_tablaPropiedadesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -147,8 +211,11 @@ public class VentanaPropiedadesActivasEmpleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaPropiedades;
+    private javax.swing.JTextField txtPropiedad;
     // End of variables declaration//GEN-END:variables
 }

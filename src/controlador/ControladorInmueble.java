@@ -9,6 +9,9 @@ import dao.DAOUsuario;
 import exceptions.CantidadDePropiedadesNoCoincidenException;
 import exceptions.GestionarPropiedadDelMismoTipoException;
 import exceptions.IdInmuebleEnUsoException;
+import exceptions.IdInmuebleNoEncontradoException;
+import exceptions.MismoEmpleadoParaInmuebleException;
+import exceptions.MismoTipoParaEditarException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.Empleado;
@@ -57,17 +60,23 @@ public class ControladorInmueble {
         daoI.guardarInmueble(inmueble);
     }
 
-    public boolean eliminarPropiedad(String id) {
-        return daoI.eliminarPropiedad(id);
+    public void eliminarPropiedad(String id) throws IdInmuebleNoEncontradoException{
+        Inmueble aux = buscarInmueble(id);
+        if (aux == null) {
+            throw new IdInmuebleNoEncontradoException();
+        }
+         daoI.eliminarPropiedad(id);
     }
 
-    public boolean editarInmueble(Inmueble inmueble, Empleado empleado) {
+    public void editarInmueble(Inmueble inmueble, Empleado empleado) throws MismoTipoParaEditarException, MismoEmpleadoParaInmuebleException {
         if ((empleado.getTipoPropiedad() == TipoPropiedad.VENTA && inmueble.getTipo() != TipoPropiedad.VENTA)
                 || (empleado.getTipoPropiedad() == TipoPropiedad.ARRENDAMIENTO && inmueble.getTipo() != TipoPropiedad.ARRENDAMIENTO)) {
-            return false;
+            throw new MismoTipoParaEditarException();   
         }
-
-        return daoI.editarInmueble(inmueble);
+        if (!inmueble.getEmpleado().getCedula().equals(empleado.getCedula())) {
+            throw new MismoEmpleadoParaInmuebleException();
+        }
+        daoI.editarInmueble(inmueble);
     }
 
     public DefaultTableModel llenarTablaInmueblePorEmpleado() {

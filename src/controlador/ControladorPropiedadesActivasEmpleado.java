@@ -24,6 +24,12 @@ public class ControladorPropiedadesActivasEmpleado {
         this.empleado =empleado;
     }
 
+    public Inmueble buscarInmueble(String id) {
+        return daoI.buscarInmueble(id);
+    }
+    
+    
+
     
     public DefaultTableModel llenarPropiedadesActivasEmpleado() {
         DefaultTableModel model = new DefaultTableModel();

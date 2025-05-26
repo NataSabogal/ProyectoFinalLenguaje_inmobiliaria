@@ -5,7 +5,9 @@
 package vista;
 
 import controlador.ControladorAgenda;
+import exceptions.HorarioCruzadoException;
 import exceptions.HorarioLaboralException;
+import exceptions.LimiteDeVisitasException;
 import exceptions.PosibilidadInmuebleConVisitaException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -62,7 +64,6 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         cbDuracion = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,14 +95,6 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
         jLabel3.setText("ID Inmueble:");
 
         txtDireccion.setEditable(false);
-
-        jButton1.setBackground(new java.awt.Color(255, 0, 51));
-        jButton1.setText("buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,9 +129,7 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(86, 86, 86)
                                 .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(15, 15, 15))))
+                                .addGap(15, 135, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,15 +173,9 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(btnAgendar)
-                        .addGap(45, 45, 45))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(33, 33, 33))))
+                .addGap(40, 40, 40)
+                .addComponent(btnAgendar)
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,25 +214,12 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
             Agenda agenda = new Agenda(id, fechaAgenda, cliente, horaInicio, horaFin, false, duracion);
             agendaC.guardarAgenda(agenda, inm);
             JOptionPane.showMessageDialog(null, "Se registró correctamente la agenda");
-        } catch (PosibilidadInmuebleConVisitaException | HorarioLaboralException e) {
+        } catch (PosibilidadInmuebleConVisitaException | HorarioLaboralException | HorarioCruzadoException | LimiteDeVisitasException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
 
     }//GEN-LAST:event_btnAgendarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String id = txtID.getText();
-        Inmueble inm = agendaC.buscarInmueble(id);
-        Agenda a = agendaC.buscarAgendaPorId(id, inm);
-        if (a != null) {
-            JOptionPane.showMessageDialog(null, "Se encontro la agenda " + a.getFecha() +" "+a.getHoraInicio()+ " "+a.getHoraFinal() +" "+ a.getDuracionHoras() + " "+ a.getCliente());
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Te falla corazon");
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,7 +282,6 @@ public class VentanaAgendarVisita extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbDuracion;
     private javax.swing.JComboBox<String> cbHora;
     private javax.swing.JComboBox<String> cbMin;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

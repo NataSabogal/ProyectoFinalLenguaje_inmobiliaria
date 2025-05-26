@@ -6,6 +6,7 @@ package vista;
 
 import controlador.ControladorVerAgendaEmpleado;
 import modelo.Empleado;
+import modelo.Inmueble;
 
 /**
  *
@@ -16,12 +17,15 @@ public class VentanaVerAgendaEmpleado extends javax.swing.JFrame {
     /**
      * Creates new form VentanaVerAgendaEmpleado
      */
+    Inmueble inm;
     Empleado empleado;
     ControladorVerAgendaEmpleado controller;
-    public VentanaVerAgendaEmpleado(Empleado empleado) {
+    public VentanaVerAgendaEmpleado(Empleado empleado, Inmueble inm) {
         initComponents();
         controller = new ControladorVerAgendaEmpleado();
         this.empleado = empleado;
+        this.inm = inm;
+        llenarTabla();
     }
 
     /**
@@ -115,6 +119,9 @@ public class VentanaVerAgendaEmpleado extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    public void llenarTabla(){
+        tablaAgendaPropiedad.setModel(controller.llenarTablaAgendaPorInmueble(inm));
+    }
    
     /**
      * @param args the command line arguments
@@ -146,7 +153,7 @@ public class VentanaVerAgendaEmpleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaVerAgendaEmpleado(null).setVisible(true);
+                new VentanaVerAgendaEmpleado(null, null).setVisible(true);
             }
         });
     }

@@ -5,7 +5,6 @@
 package dao;
 
 import java.util.ArrayList;
-import modelo.Agenda;
 import modelo.Empleado;
 import modelo.Inmueble;
 import serializadora.SerializadoraInmueble;
@@ -80,7 +79,5 @@ public class DAOInmueble {
         }
         return cont;
     }
-
-    
 
 }

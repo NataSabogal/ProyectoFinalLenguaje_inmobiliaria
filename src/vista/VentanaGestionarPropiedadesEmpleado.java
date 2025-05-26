@@ -8,6 +8,9 @@ import controlador.ControladorInmueble;
 import exceptions.CantidadDePropiedadesNoCoincidenException;
 import exceptions.GestionarPropiedadDelMismoTipoException;
 import exceptions.IdInmuebleEnUsoException;
+import exceptions.IdInmuebleNoEncontradoException;
+import exceptions.MismoEmpleadoParaInmuebleException;
+import exceptions.MismoTipoParaEditarException;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.Estado;
@@ -26,7 +29,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
      */
     ControladorInmueble inmController;
     Empleado empleado;
-
+    
     public VentanaGestionarPropiedadesEmpleado(Empleado empleado) {//aquí parametro
         initComponents();
         inmController = new ControladorInmueble(empleado);// aquí argumento
@@ -361,11 +364,11 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se guardó correctamente la propiedad");
                 limpiarCampos();
                 llenarTabla();
-
+                
             } catch (GestionarPropiedadDelMismoTipoException | CantidadDePropiedadesNoCoincidenException | IdInmuebleEnUsoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos para poder ser registrado");
         }
@@ -393,40 +396,46 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String id = txtID.getText();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-        Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
-        boolean visita = chBxVisita.isSelected();
-        String direccion = txtDireccion.getText();
-        String ciudad = txtCiudad.getText();
-        String descripcion = txtDescripcion.getText();
-        int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
-        int numBanios = (Integer) spinnerNumBanios.getValue();
-        int numPlantas = (Integer) spinnerNumPlantas.getValue();
-        Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
-        Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, empleado, descripcion);
-        boolean aux = inmController.editarInmueble(inmueble, empleado);
-        if (aux) {
-            JOptionPane.showMessageDialog(null, "Se editó correctamente");
-            llenarTabla();
-            limpiarCampos();
+        if (!txtCiudad.getText().isEmpty() && !txtDescripcion.getText().isEmpty() && !txtDireccion.getText().isEmpty() && !txtID.getText().isEmpty() && !txtPrecio.getText().isEmpty()) {
+            try {
+                String id = txtID.getText();
+                double precio = Double.parseDouble(txtPrecio.getText());
+                TipoPropiedad tipPropiedad = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+                Estado estado = Estado.valueOf(cbEstado.getSelectedItem().toString());
+                boolean visita = chBxVisita.isSelected();
+                String direccion = txtDireccion.getText();
+                String ciudad = txtCiudad.getText();
+                String descripcion = txtDescripcion.getText();
+                int numHabitaciones = (Integer) spinnerNumHabitacion.getValue();
+                int numBanios = (Integer) spinnerNumBanios.getValue();
+                int numPlantas = (Integer) spinnerNumPlantas.getValue();
+                Propiedad propiedadEsta = new Propiedad(direccion, ciudad, numHabitaciones, numBanios, numPlantas);
+                Inmueble inmueble = new Inmueble(id, propiedadEsta, precio, tipPropiedad, visita, estado, empleado, descripcion);
+                inmController.editarInmueble(inmueble, empleado);
+                
+                JOptionPane.showMessageDialog(null, "Se editó correctamente");
+                llenarTabla();
+                limpiarCampos();
+                
+            } catch (MismoTipoParaEditarException | MismoEmpleadoParaInmuebleException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo editar");
+            JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos para ser editado");
         }
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String id = txtID.getText();
-        boolean aux = inmController.eliminarPropiedad(id);
-        if (aux) {
+        try {
+            String id = txtID.getText();
+            inmController.eliminarPropiedad(id);
+            
             JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
             llenarTabla();
             limpiarCampos();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar correctamente");
+        } catch (IdInmuebleNoEncontradoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -446,7 +455,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             String id = txtPropiedadAgenda.getText();
             Inmueble inm = inmController.buscarInmueble(id);
             if (inm != null) {
-                VentanaVerAgendaEmpleado agendaE = new VentanaVerAgendaEmpleado(empleado);
+                VentanaVerAgendaEmpleado agendaE = new VentanaVerAgendaEmpleado(empleado, inm);
                 agendaE.setVisible(true);
                 agendaE.setLocationRelativeTo(null);
                 this.dispose();
@@ -469,14 +478,14 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
         spinnerNumBanios.setValue(0);
         spinnerNumHabitacion.setValue(0);
         spinnerNumPlantas.setValue(0);
-
+        
     }
-
+    
     public void llenarTabla() {
         tablaP.setModel(inmController.llenarTablaInmueblePorEmpleado());
-
+        
     }
-
+    
     private void configurarComboBox(Empleado empleado) {
         cbTipoPropiedad.removeAllItems();
         if (empleado.getTipoPropiedad() == TipoPropiedad.VENTA) {
@@ -488,7 +497,7 @@ public class VentanaGestionarPropiedadesEmpleado extends javax.swing.JFrame {
             cbTipoPropiedad.addItem("ARRENDAMIENTO");
         }
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

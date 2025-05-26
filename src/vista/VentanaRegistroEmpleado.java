@@ -7,6 +7,7 @@ package vista;
 import controlador.ControladorEmpleado;
 import exceptions.CedulaEnUsoException;
 import exceptions.PasswordRepetidaException;
+import exceptions.UsuarioNoEncontradoException;
 import javax.swing.JOptionPane;
 import modelo.Empleado;
 import modelo.RolUsuario;
@@ -326,40 +327,42 @@ public class VentanaRegistroEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEiminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEiminarActionPerformed
-        String cedula = txtCedula.getText();
-        boolean aux = empleadoController.eliminarEmpleado(cedula);
-        if (aux) {
+        try {
+            String cedula = txtCedula.getText();
+            empleadoController.eliminarEmpleado(cedula);
+
             JOptionPane.showMessageDialog(null, "Eliminado correctamente");
             limpiarCampos();
             llenarTabla();
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+
+        } catch (UsuarioNoEncontradoException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEiminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtCantidadPropiedades.getText().isEmpty()
                 && !txtEdad.getText().isEmpty() && !txtFecha.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            String nombre = txtNombre.getText();
-            String cedula = txtCedula.getText();
-            int edad = Integer.parseInt(txtEdad.getText());
-            String fecha = txtFecha.getText();
-            String password = txtPassword.getText();
-            String telefono = txtTelefono.getText();
-            RolUsuario rolCliente = RolUsuario.EMPLEADO;
-            int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
-            TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
-            Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
-            boolean aux = empleadoController.editarEmpleado(emp);
-            if (aux) {
+            try {
+                String nombre = txtNombre.getText();
+                String cedula = txtCedula.getText();
+                int edad = Integer.parseInt(txtEdad.getText());
+                String fecha = txtFecha.getText();
+                String password = txtPassword.getText();
+                String telefono = txtTelefono.getText();
+                RolUsuario rolCliente = RolUsuario.EMPLEADO;
+                int cantPropiedades = Integer.parseInt(txtCantidadPropiedades.getText());
+                TipoPropiedad tipoPropiedadSeleccionado = TipoPropiedad.valueOf(cbTipoPropiedad.getSelectedItem().toString());
+                Empleado emp = new Empleado(cantPropiedades, tipoPropiedadSeleccionado, nombre, cedula, edad, fecha, telefono, password, rolCliente);
+                empleadoController.editarEmpleado(emp);
+
                 JOptionPane.showMessageDialog(null, "Se editó correctamente");
                 llenarTabla();
                 limpiarCampos();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo editar");
+            } catch (UsuarioNoEncontradoException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Asegurese de digitar todos los campos");
         }
